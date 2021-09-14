@@ -1,0 +1,24 @@
+{
+    "name": "uit-se301.m11-biddapp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Thomg102/UIT-SE301.M11-BidDapp.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@truffle/hdwallet-provider": "^1.5.0",
+        "dotenv": "^10.0.0",
+        "web3": "^1.5.2"
+    },
+    "bugs": {
+        "url": "https://github.com/Thomg102/UIT-SE301.M11-BidDapp/issues"
+    },
+    "homepage": "https://github.com/Thomg102/UIT-SE301.M11-BidDapp#readme"
+}
