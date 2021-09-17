@@ -1,0 +1,43 @@
+.productPage {
+    &__sidebar {
+        padding-top: 30px;
+        margin-bottom: 60px;
+        &__menu {
+            background-color: white;
+            //text-align: center;
+            top: 10px;
+            display: block;
+            width: 200px;
+            position: sticky;
+            float: right;
+            ul {
+                width: inherit;
+                
+            }
+            li {
+               margin-bottom: 20px; 
+            }
+        }
+    }
+
+    &__content {
+        padding-top: 30px;
+        margin-bottom: 60px;
+        display: block;
+        box-sizing: border-box;
+        float: left;
+        position: relative;
+        margin-left: 20px;
+    }
+    
+    .border-right-before::before {
+        content: '';
+        left:0;
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        margin-bottom: 200px;
+        background: $color-primary-brown;
+    }
+}
+

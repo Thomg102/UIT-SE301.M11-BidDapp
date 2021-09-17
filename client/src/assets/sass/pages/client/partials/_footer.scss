@@ -1,0 +1,72 @@
+.footer {
+  padding: 9rem 0 4rem;
+  background-color: $color-black;
+  color: $color-white;
+  position: relative;
+
+  & .logo {
+    position: absolute;
+    display: block;
+    text-align: center;
+    width: 20rem;
+    top: 4.5rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: -100%;
+    &__name {
+      font-weight: 700;
+      font-size: 25px;
+
+      &::before {
+        content: "";
+        width: 25%;
+        height: 4px;
+        position: absolute;
+        left: -22%;
+        top: 50%;
+        background-color: $color-primary-orange;
+      }
+    }
+  }
+
+  &__column {
+    flex: 1;
+
+    &:not(:first-child) li::before {
+      content: "\2022"; /* CSS Code/unicode for a bullet */
+      color: $color-primary-orange;
+      display: inline-block;
+      width: 1em;
+      margin-left: 0.5rem;
+    }
+  }
+
+  &__info {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__heading {
+    font-weight: 700;
+  }
+
+  &__content {
+    color: $color-dark-2;
+    margin-top: 1rem;
+
+    &--right {
+      margin-left: 1rem;
+      transition: all 0.3s ease-in;
+    }
+
+    & li:hover &--right {
+      margin-left: 2rem;
+      color: $color-white;
+    }
+
+    &--left {
+      color: $color-primary-orange;
+    }
+  }
+}

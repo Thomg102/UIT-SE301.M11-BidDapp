@@ -1,0 +1,37 @@
+.productDetail {
+    .container {
+        display: flex;
+        padding-top: 30px;
+        margin-bottom: 60px;
+    }
+
+    &__image {
+        display: flex;
+        width: 50%;
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    &__info {
+        display: flex;
+        width: 50%;
+        &__wrap {
+            margin: auto;
+        }
+        
+        &__price {
+            font-size: 24px;
+            font-weight: 700;
+            color: blue;
+            margin-bottom: 10px;
+        }
+    }
+
+    &__related {
+        .row {
+            margin: auto;
+        }
+    }
+}
