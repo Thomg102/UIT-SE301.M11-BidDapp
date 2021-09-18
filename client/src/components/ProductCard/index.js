@@ -6,7 +6,7 @@ const ProductCard = (props) => {
             <div className="productCard">
             <div className="productCard__image">
                 <a href="/product/view">
-                    <img src={require('../../../assets/pictures/test.jpg').default} alt="Product"/>
+                    <img src={require('../../assets/pictures/test.jpg').default} alt="Product"/>
                 </a>
             </div>
             <div className="productCard__info">
