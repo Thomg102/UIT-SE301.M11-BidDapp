@@ -1,32 +1,19 @@
-import React, {useState} from "react";
-import { MenuItems } from "./MenuItems";
+import React from "react";
 
-const Navbar = () => {
-  const [state, setState] = useState(false);
-
-  const handleClick = () => {
-    setState(!state);
-  };
-  
+const Navbar = ({onSwitch, showAsk}) => {
   return (
     <nav className="navbar">
-      <h1 className="navbar__logo">Sport</h1>
-      <div className="navbar__menu-icon" onClick={handleClick}>
-        <i className={state ? "fas fa-times" : "fas fa-bars"}></i>
+      <h1 className="navbar__logo">LOGO</h1>
+      <div className="navbar__switch">
+        <input type="radio" name="slide" id="askSlider" checked/>
+        <input type="radio" name="slide" id="bidSlider"/>
+        <label for="askSlider" class="askLabel slide" onClick={onSwitch}>ASK</label>
+        <label for="bidSlider" class="bidLabel slide" onClick={onSwitch}>BID</label>
+        <div class="slider-tab"></div>
       </div>
-      <ul className={state ? "navbar__menu navbar__active" : "navbar__menu"}>
-        {MenuItems.map((item, index) => {
-          return (
-            <li key={index}>
-              <a className={item.cName} href={item.url}>
-                {item.title}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="connectWallet">connect to wallet</div>
     </nav>
   );
-};
+}
 
 export default Navbar;
