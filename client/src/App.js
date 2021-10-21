@@ -2,7 +2,6 @@ import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import routes from './containers/routes';
 
-
 function App() {
   return (
     <Switch>
