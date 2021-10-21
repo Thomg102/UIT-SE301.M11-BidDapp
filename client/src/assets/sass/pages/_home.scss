@@ -1,0 +1,174 @@
+.ask {
+  
+    color: white;
+
+    &__container {
+        width: 20%;
+        padding-bottom: 20px;
+        padding-top: 0.5px;
+        padding-left: 20px;
+        padding-right: 20px; 
+        background: #191B1F;
+        border-radius: 40px;
+        margin: auto;
+    }
+
+    & p {
+        font-size: 10pt;
+        padding-bottom: 0;
+        height: 10px;
+    }
+
+    &__section {
+        height: 70px;
+        display: grid;
+        grid-template-columns: repeat(2,auto);
+        align-items: center;
+        background: #212429;
+        border-radius: 40px;
+        margin-bottom: 10px;
+    }
+
+    & .eth{
+        width: 35%;
+        justify-self: start;
+        margin-left: 30px;
+    }
+
+    & .selectToken {
+        margin: auto;
+        width: 70%;
+        height: 50%;
+    }
+
+    & .number {
+        justify-self: end;
+        margin-right: 20px;
+    }
+
+    & .connectWallet {
+        margin: auto;
+        width: 70%;
+        text-align: center;
+    }
+}
+
+.bid {
+    width: 70%;
+    height: 500px;
+    margin: auto;
+    &__price {
+        height: max-content;
+        padding-bottom: 40px;
+        display: grid;
+        grid-template-columns: repeat(2,auto);
+        align-items: center;
+        text-align: center;
+        margin: auto 50px;
+
+        & .pricebox {
+            margin-top: 30px;
+        }
+
+        & .rise {
+            justify-self: end;
+            margin-right: 5px;
+            background-color: #68333E;
+        }
+
+        & .drop {
+            background: rgba(57, 24, 82, 0.87);
+        }
+    }
+
+    &__btnGroup {
+        width: 37%;
+        display: flex;
+        justify-content: flex-start;
+        margin: auto;
+
+        .eth {
+            width: 15%;
+        }
+
+        .selectToken {
+            width: 25%;
+        }
+    }
+
+    &__details {
+        width: 60%;
+        margin: auto;
+        color: white;
+        background: #191B1F;
+        border-radius: 40px;
+
+        table {
+            border-collapse: collapse;
+            margin: 10px auto;
+        }
+
+        th {
+            padding-top: 10px;
+            padding-right: 20px;
+            font-size: 10pt;
+            text-align: center;
+        }
+
+        td div {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        tr.border-bottom td {
+            margin-bottom: px;
+            border-bottom: 1px #9A9191 solid;
+            border-collapse: collapse;
+        }
+
+        .address {
+            width: 206px;
+            height: 44px;
+            background: #1C2F48;
+            border-radius: 40px;
+            margin-right: 20px;
+        }
+
+        .to {
+            width: 123px;
+            height: 44px;
+            background: #1C2F48;
+            border-radius: 40px;
+            margin-right: 20px;
+        }
+
+        .from {
+            width: 118px;
+            height: 44px;
+            background: #1C2F48;
+            border-radius: 40px;
+            margin-right: 20px;   
+        }
+
+        .bidBtn {
+            display: flex;
+            width: 97px;
+            height: 44px;
+            background: #1C2F48;
+            border-radius: 40px; 
+            justify-content: center;
+            align-items: center;
+        }
+
+        p {
+            margin-top: 0;
+            text-align: center;
+            font-size: 30pt;
+            cursor: pointer;
+        }
+    }
+}
+
+i {
+    cursor: pointer;
+}
