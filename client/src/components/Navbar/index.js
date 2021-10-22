@@ -1,20 +1,18 @@
 import React, {useState, useEffect} from "react";
 import Web3 from 'web3';
-import { Link } from 'react-router-dom';
 
 const Navbar = ({onSwitch, showAsk}) => {
 
   const [account, setAccount] = useState("Connect to wallet");
-  const [metamask, setMetamask] = useState(false);
+  const [metamask, setMetamask] = useState(true);
 
   useEffect(() => {
     loadWeb3();
     loadData();
-    if (window.localStorage.account){
-      setAccount(window.localStorage.account);
-    }
-  });
-
+    if (window.localStorage.account != undefined && window.web3 != undefined)
+      setAccount(window.localStorage.account)
+  }, [account]);
+  
   const loadWeb3 = async ()=>{
     if (window.ethereum){
       window.web3 = new Web3(window.ethereum);
@@ -29,12 +27,15 @@ const Navbar = ({onSwitch, showAsk}) => {
   }
 
   const loadData = async ()=>{
-    const web3 = window.web3;
-    const a =web3.eth.getAccounts((error, result) =>{
-      setAccount(result);
-      window.localStorage.account = result;
+    if (window.web3){
+      const web3 = window.web3;
+      const a = await web3.eth.getAccounts((error, result) =>{
+        if (result.length != 0 && result[0] !=undefined){
+          setAccount(result);
+          window.localStorage.account = result;
+        }
     });
-    
+    }
   }
 
   return (
