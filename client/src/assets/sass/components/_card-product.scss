@@ -1,0 +1,50 @@
+.card-product {
+    width: 30rem;
+    font-size: 12px;
+    padding: 0;
+
+    &__eth-icon {
+        width: 1rem;
+        height: 1.4rem;
+    }
+
+    &__name {
+        font-weight: 500;
+        color: #707a83;
+    }
+
+    &__price {
+        font-size: 14px;
+        font-weight: 600;
+        color: #353840;       
+    }
+
+    &__price--title {
+        color: #707a83;
+    }
+
+    &__shortDesc {
+        color: #353840;
+        font-weight: 600;
+    }
+
+    & .card-body {
+        padding: 2rem 1rem;
+    }
+
+    & .card-footer {
+        border-top: 4px solid #f4f5f6;
+        padding: 2rem 1rem;
+    }
+
+    &__cta {
+        color: #476bd8;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+    &:hover {
+        box-shadow: 0px 2px 4px 4px rgba($color: #000000, $alpha: 0.1);
+        cursor: pointer;
+    }
+}
