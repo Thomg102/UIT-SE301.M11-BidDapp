@@ -1,5 +1,7 @@
+/* eslint-disable eqeqeq */
 import React, {useState, useEffect} from "react";
 import Web3 from 'web3';
+import { MenuItems } from "./MenuItems";
 
 let web3;
 
@@ -7,7 +9,13 @@ const Navbar = ({onSwitch, showAsk}) => {
 
   const [account, setAccount] = useState("Connect to wallet");
   const [metamask, setMetamask] = useState(true);
+  const [state, setState] = useState(false);
 
+  const handleClick = () => {
+    setState(!state);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async() => {
       const ethereum = window.ethereum;
       if (ethereum != undefined){
@@ -44,26 +52,24 @@ const Navbar = ({onSwitch, showAsk}) => {
   }
 
   return (
-    <React.Fragment>
     <nav className="navbar">
-      <h1 className="navbar__logo">LOGO</h1>
-      <div className="navbar__switch">
-        <input type="radio" name="slide" id="askSlider" checked/>
-        <input type="radio" name="slide" id="bidSlider"/>
-        <label for="askSlider" class="askLabel slide" onClick={onSwitch}>ASK</label>
-        <label for="bidSlider" class="bidLabel slide" onClick={onSwitch}>BID</label>
-        <div class="slider-tab"></div>
+      <h1 className="navbar__logo">Logo</h1>
+      <div className="navbar__menu-icon" onClick={handleClick}>
+        <i className={state ? "fas fa-times" : "fas fa-bars"}></i>
       </div>
-      <button className="connectWallet" onClick={loadWeb3}>{account}</button>
+      <ul className={state ? "navbar__menu navbar__active" : "navbar__menu"}>
+        {MenuItems.map((item, index) => {
+          return (
+            <li key={index}>
+              <a className={item.cName} href={item.url}>
+                {item.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
-    {!metamask&&(
-        <div style={{backgroundColor: "green", position: "absolute", left: "35%", zIndex: "999"}}>
-        <h1>Cài Meta Mask đi bạn ơi</h1>
-        <h1 className="text-center"><a href="https://metamask.io/download.html">LINK</a></h1>
-        </div>
-      )}
-      </React.Fragment>
-  );
+  )
 }
 
 export default Navbar;
