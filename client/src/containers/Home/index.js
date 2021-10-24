@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Navbar from '../../components/Navbar/index'
+import Footer from '../../components/Footer/index'
 
 const index = () => {
 
@@ -98,6 +99,7 @@ const index = () => {
                 
                 
             </div>
+            <Footer/>
         </>
     )
 }
