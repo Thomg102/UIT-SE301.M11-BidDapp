@@ -1,0 +1,59 @@
+.FilterBar header{
+        font-size: 20px;
+        text-align: center;
+        padding: 10px 0px;
+        box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.3);
+}
+
+.card-header{
+    background-color: white;
+    border-style:none;
+    padding: 10px 0px 10px 15px;
+    h2 button{
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+#collapseOne, #collapseThree{
+    font-size: 15px;
+    .container {
+        padding: 10px;
+        input {
+            margin: 0 5px 0 10px;
+        }
+    }
+}
+
+#collapseTwo {
+   padding: 10px;
+   .dropdown{
+        padding-bottom: 20px;
+        button {
+            width: 100%;
+        }
+        .dropdown-menu{
+            width: 100%;
+        }
+   }
+   #dropdownMenuButton{
+       font-size: 15px;
+       text-align: left;
+   }
+   .dropdown-menu{
+       font-size: 15px;
+   }
+   .minmaxInput {
+    padding-bottom: 10px;
+    input {
+       height: 35px;
+       font-size: 15px;
+       width: 100px;
+       padding-left: 10px;
+    }
+    p {
+        font-size: 18px;
+    }
+   }
+
+}
