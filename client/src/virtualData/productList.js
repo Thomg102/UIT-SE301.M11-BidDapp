@@ -9,6 +9,9 @@ export const productList = {
             isVerifiedCollection: true,
             isETHOnPolygon: true,
             leftTime: '1 day',
+            endDate: 'April 18, 2022 at 10:21am +07',
+            owner: 'MarinaWhite',
+            discription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'
         },
         {
             id: '2',
@@ -19,6 +22,9 @@ export const productList = {
             isVerifiedCollection: false,
             isETHOnPolygon: false,
             leftTime: '2 day',
+            endDate: 'April 18, 2022 at 10:21am +07',
+            owner: 'Anna Le',
+            discription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'
         }
     ]
 }
