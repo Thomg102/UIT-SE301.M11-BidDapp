@@ -1,7 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const Product = (props) => {
+  const history = useHistory();
+
   const {
+    id,
     name,
     image,
     shortDesc,
@@ -11,8 +15,12 @@ const Product = (props) => {
     leftTime,
   } = props;
 
+  const handleClick = (id) => {
+    history.push(`product/${id}`);
+  }
+
   return (
-    <div className="card card-product">
+    <div className="card card-product" onClick={e => { handleClick(id) }}>
       <div className="p-0">
         <img src={image} className="card-img-top" alt={name} />
       </div>

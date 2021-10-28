@@ -1,0 +1,49 @@
+.detail {
+    font-size: 16px;
+
+    &__shortDesc {
+        color: #353840;
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+    &__endDate, &__price-title, &__owner {
+        color: #707a83;
+    }
+
+    &__price {
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    &__eth-icon {
+        width: 20px;
+        height: 30px;
+    }
+
+    &__cta-buy {
+        color: #353840;
+        font-weight: 700;
+        padding: 10px 50px;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    &__catalog-title {
+        font-weight: 600;
+        color: #04111d;
+    }
+
+    &__catalog-content {
+        color: #353840;
+    }
+
+    & .card-body {  
+        background: #FBFDFF;
+    }
+
+    &__img {
+        overflow: hidden;
+        border-radius: 20px;
+    }
+}
