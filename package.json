@@ -14,9 +14,11 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@truffle/hdwallet-provider": "^1.5.0",
+        "@openzeppelin/contracts": "^4.2.0",
+        "@truffle/hdwallet-provider": "^1.4.1",
         "dotenv": "^10.0.0",
-        "web3": "^1.5.2"
+        "truffle": "^5.4.10",
+        "truffle-plugin-verify": "^0.5.14"
     },
     "bugs": {
         "url": "https://github.com/Thomg102/UIT-SE301.M11-BidDapp/issues"
