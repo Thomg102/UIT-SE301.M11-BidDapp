@@ -7,7 +7,6 @@ import Filter from "../../components/Filter/index";
 const ProductList = () => {
     return (
        <>
-            <Header></Header>
             <div>
                 <div className = "row">
                     <div className = "col-3">

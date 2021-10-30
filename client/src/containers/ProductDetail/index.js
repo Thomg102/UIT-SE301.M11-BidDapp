@@ -12,10 +12,9 @@ const ProductDetail = ({ match }) => {
 
     return (
         <div>
-            <Header></Header>
             { product && 
                 <div className="container detail">
-                    <div className="row mt-5 gx-5">
+                    <div className="row gx-5">
                         <div className="col-6">
                             <div class="card detail__img">
                                 <div class="p-0 card-body border-top">
