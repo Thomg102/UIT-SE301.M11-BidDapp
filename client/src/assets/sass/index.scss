@@ -13,8 +13,11 @@
 @import "base/icon";
 
 @import "components/btn";
+@import "components/card-product";
+@import "components/footer";
+
+@import "components/header";
+@import "components/filter-bar";
 
 @import "pages/home";
-@import "pages/navbar";
-
-//@import "../../../node_modules/bootstrap/scss/containers"
+@import "pages/detail";

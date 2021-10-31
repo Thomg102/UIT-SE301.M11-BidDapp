@@ -7,4 +7,4 @@ const route = {
     component: lazy(() => import(".")),
 }
 
-export default route
+export default route;
