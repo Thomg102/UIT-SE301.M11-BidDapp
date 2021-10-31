@@ -176,6 +176,17 @@ contract MarketPlace is Ownable {
         );
     }
 
+    function restartOffer(
+        uint256 _tokenId,
+        uint256 _index,
+        uint256 _timeout
+    ) public {
+        require(tokenIdToOffer[_tokenId][_index].bargainer == msg.sender);
+        require(tokenIdToOffer[_tokenId][_index].timeout < block.timestamp);
+        require(_timeout > block.timestamp);
+        tokenIdToOffer[_tokenId][_index].timeout = _timeout;
+    }
+
     function getOffer(uint256 _tokenId, uint256 _index)
         public
         view
@@ -187,6 +198,8 @@ contract MarketPlace is Ownable {
     }
 
     //chủ sở hữu da approve token721 hay chua
+    //manual => not guarantee
+    //automation => guarantee.....
     function approveOffer(uint256 _tokenId, uint256 _index) public {
         Product storage _product = tokenIdToProduct[_tokenId];
         Offer memory _offer = getOffer(_tokenId, _index);
