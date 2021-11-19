@@ -61,7 +61,7 @@ const Header = () => {
         <div class="header-right align-self-center">
             <a href="/products">Products</a>
             <a href="/">Stats</a>
-            <a href="/">Create</a>
+            <a href="/product/create">Create</a>
             <a href="/" className="bg-info connectWallet" onClick={loadWeb3}>{account}</a>
         </div>
         {metamask||(

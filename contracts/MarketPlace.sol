@@ -2,74 +2,70 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "./Art.sol";
+import "./interfaces/IMarketPlace.sol";
 
-contract MarketPlace is Ownable {
+contract MarketPlace is Ownable, IMarketPlace {
     using SafeERC20 for IERC20;
-    struct Product {
-        uint256 tokenId;
-        uint256 price;
-        bool listing;
-        bool selling;
-        address creator;
-        uint256 rate;
-        uint256 timestamp;
-    }
-
-    struct Offer {
-        uint256 tokenId;
-        uint256 amount;
-        address token20;
-        address bargainer;
-        bool accepted;
-        uint256 timeout;
-    }
 
     Art art;
 
     address[] public sellers;
     mapping(uint256 => Product) public tokenIdToProduct;
     mapping(address => Product[]) public userToProduct; //creator anf their product
-
     mapping(uint256 => Offer[]) public tokenIdToOffer;
-    // mapping(uint256 => address) public askToOwner721;
-
-    event Transfer(
-        uint256 indexed _tokenId,
-        address indexed _oldOwner,
-        address indexed _newOwner
-    );
-    event NewOffer(
-        uint256 indexed _tokenId,
-        uint256 _amount,
-        address _token20,
-        address indexed _bargainer,
-        uint256 _timeout
-    );
-    event ApproveOffer(
-        uint256 indexed _tokenId,
-        address indexed _oldOwner,
-        address indexed _newOwner,
-        uint256 _index
-    );
+    mapping(string => bool) public checkTransactionId;
+    mapping(string => bool) public imageExisted;
 
     modifier onlyOwnerOfToken(uint256 _tokenId) {
         require(art.ownerOf(_tokenId) == msg.sender);
         _;
     }
 
-    constructor() {
-        art = new Art();
+    /**
+     * @dev Sets the values for {art}.
+     *
+     * This value can be immutable: they can only be set once during
+     * construction.
+     */
+    constructor(address _artAddr) {
+        art = Art(_artAddr);
     }
 
-    function createNewProduct(string memory _hash, uint256 _price) public {
-        uint256 _tokenId = art.createNewNFT(msg.sender, _hash);
-        sellers.push(msg.sender);
+    /**
+     * @dev See {IMarketplace-setArtAddr}.
+     *
+     * Requirements:
+     *
+     * - `_artAddr` cannot be the zero address.
+     * - Only owner have right to call this function.
+     */
+    function setArtAddr(address _artAddr) public onlyOwner {
+        require(_artAddr != address(0));
+        art = Art(_artAddr);
+    }
 
+    /**
+     * @dev See {IMarketplace-createNewProduct}.
+     *
+     * Emits an {Transfer} event indicating the successful NFT generation
+     *
+     * Requirements:
+     *
+     * - `_hashImg` use only once.
+     */
+    function createNewProduct(
+        string memory _hashInfo,
+        string memory _hashImg,
+        uint256 _price
+    ) public override {
+        require(!imageExisted[_hashImg], "");
+        uint256 _tokenId = art.createNewNFT(msg.sender, _hashInfo);
+        sellers.push(msg.sender);
+        imageExisted[_hashImg] = true;
         Product memory product = Product(
             _tokenId,
             _price,
@@ -85,35 +81,71 @@ contract MarketPlace is Ownable {
         emit Transfer(_tokenId, address(0), msg.sender);
     } //goi kem approve
 
-    function setListOrNot(uint256 _tokenId) public onlyOwnerOfToken(_tokenId) {
+    /**
+     * @dev See {IMarketplace-setListOrNot}.
+     */
+    function setListOrNot(uint256 _tokenId)
+        public
+        override
+        onlyOwnerOfToken(_tokenId)
+    {
         Product storage product = tokenIdToProduct[_tokenId];
         product.listing = !product.listing;
     }
 
+    /**
+     * @dev See {IMarketplace-setSellOrNot}.
+     */
     //neu tu false sang true thi phai goi kem approve
-    function setSellOrNot(uint256 _tokenId) public onlyOwnerOfToken(_tokenId) {
+    function setSellOrNot(uint256 _tokenId)
+        public
+        override
+        onlyOwnerOfToken(_tokenId)
+    {
         Product storage product = tokenIdToProduct[_tokenId];
         product.selling = !product.selling;
     }
 
+    /**
+     * @dev See {IMarketplace-setPrice}.
+     *
+     * Requirements:
+     *
+     * - Only owner of `_tokenId` can call this function.
+     */
     function setPrice(uint256 _tokenId, uint256 _price)
         public
+        override
         onlyOwnerOfToken(_tokenId)
     {
         Product storage product = tokenIdToProduct[_tokenId];
         product.price = _price;
     }
 
+    /**
+     * @dev See {IMarketplace-getProductListCreated}.
+     */
     function getProductListCreated(address _user)
         public
         view
+        override
         returns (Product[] memory)
     {
         return userToProduct[_user];
     }
 
+    /**
+     * @dev See {IMarketplace-buyWithETH}.
+     *
+     * Requirements:
+     *
+     * - `_tokenId` product must be selling on market place
+     * - must be approved first
+     * - send value ETH equal price of product
+     * - caller can not be owner of `_tokenId`
+     */
     //Phai approve truoc
-    function buy(uint256 _tokenId) public payable {
+    function buyWithETH(uint256 _tokenId) public payable override {
         Product storage _product = tokenIdToProduct[_tokenId];
         require(_product.selling);
         require(art.getApproved(_tokenId) == address(this));
@@ -121,18 +153,46 @@ contract MarketPlace is Ownable {
         require(msg.sender != art.ownerOf(_tokenId));
 
         _product.selling = false;
-        art.setOwnerToTokenId(msg.sender, _tokenId);
         address _owner = art.ownerOf(_tokenId);
-        art.safeTransferFrom(_owner, msg.sender, _tokenId);
-        Address.sendValue(payable(_owner), (msg.value * 98) / 100);
 
-        emit Transfer(_tokenId, _owner, msg.sender);
+        setOwnerRight(msg.sender, _tokenId);
+        payment(_owner, msg.value);
     }
 
+    /**
+     * @dev See {IMarketplace-buyWithCurrency}.
+     *
+     * Requirements:
+     *
+     * - `_tokenId` product must be selling on market place
+     * - must be approved first
+     * - caller can not be owner of `_tokenId`
+     * - `traransactionId` haven't used yet
+     */
+    function buyWithCurrency(uint256 _tokenId, string memory traransactionId)
+        public
+        override
+    {
+        Product storage _product = tokenIdToProduct[_tokenId];
+        require(_product.selling);
+        require(art.getApproved(_tokenId) == address(this));
+        require(msg.sender != art.ownerOf(_tokenId));
+        require(!checkTransactionId[traransactionId]);
+
+        checkTransactionId[traransactionId] = true;
+        _product.selling = false;
+
+        setOwnerRight(msg.sender, _tokenId);
+    }
+
+    /**
+     * @dev See {IMarketplace-getProducListOwnable}.
+     */
     //lay ra danh sach cac san pham so huu
     function getProducListOwnable(address _owner)
         public
         view
+        override
         returns (Product[] memory)
     {
         uint256[] memory arr = art.getTokenList(_owner);
@@ -143,18 +203,33 @@ contract MarketPlace is Ownable {
         return productList;
     }
 
+    /**
+     * @dev See {IMarketplace-offer}.
+     *
+     * Emits an {NewOffer} event indicating the successful NewOffer generation
+     *
+     * Requirements:
+     *
+     * - `_tokenId`'s owner  must be selling on market place
+     * - `_token20` address can not address zero
+     * - caller must approve `_amount` token erc20 for this contract
+     * - `_timeout` must be time in the future
+     */
     //Phai goi kem approve token cho contractt nay
     function offer(
         uint256 _tokenId,
         uint256 _amount,
         address _token20,
         uint256 _timeout
-    ) public {
+    ) public override {
+        Product storage _product = tokenIdToProduct[_tokenId];
+        require(_product.selling);
         require(art.ownerOf(_tokenId) != address(0));
         require(_token20 != address(0));
         require(
             IERC20(_token20).allowance(msg.sender, address(this)) >= _amount
         );
+        require(_timeout > block.timestamp);
         // IERC20(_token20).approve(address(this), _amount);
 
         tokenIdToOffer[_tokenId].push(
@@ -176,31 +251,53 @@ contract MarketPlace is Ownable {
         );
     }
 
+    /**
+     * @dev See {IMarketplace-restartOffer}.
+     *
+     * Requirements:
+     *
+     * - `_tokenId`'s owner  must be selling on market place
+     * - caller must be creator of offer
+     * - `_timeout` must be time in the future
+     */
     function restartOffer(
         uint256 _tokenId,
         uint256 _index,
         uint256 _timeout
-    ) public {
+    ) public override {
         require(tokenIdToOffer[_tokenId][_index].bargainer == msg.sender);
         require(tokenIdToOffer[_tokenId][_index].timeout < block.timestamp);
         require(_timeout > block.timestamp);
         tokenIdToOffer[_tokenId][_index].timeout = _timeout;
     }
 
+    /**
+     * @dev See {IMarketplace-getOffer}.
+     */
     function getOffer(uint256 _tokenId, uint256 _index)
         public
         view
+        override
         returns (Offer memory)
     {
-        // require(art.ownerOf(_tokenId) == msg.sender);
         require(_index <= tokenIdToOffer[_tokenId].length);
         return tokenIdToOffer[_tokenId][_index];
     }
 
+    /**
+     * @dev See {IMarketplace-approveOffer}.
+     *
+     * Emits an {ApproveOffer} event indicating the successful approved offer
+     *
+     * Requirements:
+     *
+     * - `_tokenId`'s owner  must be selling on market place
+     * and approved for this contract
+     * - caller must be owner  of `_tokenId` product
+     * - `_timeout` of offer must be greater than current timestamp
+     */
     //chủ sở hữu da approve token721 hay chua
-    //manual => not guarantee
-    //automation => guarantee.....
-    function approveOffer(uint256 _tokenId, uint256 _index) public {
+    function approveOffer(uint256 _tokenId, uint256 _index) public override {
         Product storage _product = tokenIdToProduct[_tokenId];
         Offer memory _offer = getOffer(_tokenId, _index);
 
@@ -212,15 +309,46 @@ contract MarketPlace is Ownable {
 
         tokenIdToOffer[_tokenId][_index].accepted = true;
         _product.selling = false;
-        art.setOwnerToTokenId(msg.sender, _tokenId);
+
+        setOwnerRight(_offer.bargainer, _tokenId);
+
         address _owner = art.ownerOf(_tokenId);
-        art.safeTransferFrom(_owner, _offer.bargainer, _tokenId);
-        IERC20(_offer.token20).safeTransferFrom(
-            _offer.bargainer,
-            _owner,
-            (_offer.amount * 95) / 100
-        );
+
+        payment(_offer.token20, _offer.bargainer, _owner, _offer.amount);
 
         emit ApproveOffer(_tokenId, _owner, msg.sender, _index);
+    }
+
+    /**
+     * @dev Update new owner for product.
+     */
+    function setOwnerRight(address buyer, uint256 _tokenId) internal {
+        art.setOwnerToTokenId(buyer, _tokenId);
+        address _owner = art.ownerOf(_tokenId);
+        art.safeTransferFrom(_owner, buyer, _tokenId);
+        emit Transfer(_tokenId, _owner, buyer);
+    }
+
+    /**
+     * @dev Payment for ETH.
+     */
+    function payment(address _owner, uint256 _value) internal {
+        Address.sendValue(payable(_owner), (_value * 98) / 100);
+    }
+
+    /**
+     * @dev Payment for ERC20.
+     */
+    function payment(
+        address _tokenEr20,
+        address _sender,
+        address _receipent,
+        uint256 _amount
+    ) internal {
+        IERC20(_tokenEr20).safeTransferFrom(
+            _sender,
+            _receipent,
+            (_amount * 95) / 100
+        );
     }
 }
