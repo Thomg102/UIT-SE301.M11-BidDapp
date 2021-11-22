@@ -15,7 +15,7 @@ const index = () => {
     <>
       <div className="form-group row">
         <label for="productName" className="col-sm-2">Name</label>
-        <div className="col-sm-5">
+        <div className="col-sm-6">
           <input type="text" name="productName" id="productName" className="form-control" required />
 
         </div>
@@ -25,7 +25,7 @@ const index = () => {
         <div className="col-sm-2">
           <label for="productImg">Cover Image</label>
         </div>
-        <div className="col-sm-5">
+        <div className="col-sm-6">
           <FilePond allowMultiple={false} server="/api" />
         </div>
       </div>
@@ -34,7 +34,7 @@ const index = () => {
         <div className="col-sm-2">
           <label for="images">Images</label>
         </div>
-        <div className="col-sm-5">
+        <div className="col-sm-6">
           <FilePond allowMultiple={true} maxFiles={3} server="/api" />
         </div>
       </div>
@@ -43,7 +43,7 @@ const index = () => {
         <div className="col-sm-2">
           <label for="productShortDesc">Description:</label>
         </div>
-        <div className="col-sm-5">
+        <div className="col-sm-6">
           <textarea className="form-control" id="productShortDesc" rows="3" maxlength="250" name="productShortDesc"
             required></textarea>
 
@@ -54,7 +54,7 @@ const index = () => {
         <div className="col-sm-2">
           <label for="productDesc">Detail:</label>
         </div>
-        <div className="col-sm-8">
+        <div className="col-sm-6">
           <textarea className="form-control" id="productDesc" rows="3" name="productDesc" required></textarea>
 
         </div>
@@ -64,20 +64,8 @@ const index = () => {
         <div className="col-sm-2">
           <label className="productPrice">Price:</label>
         </div>
-        <div className="col-sm-5">
+        <div className="col-sm-6">
           <input type="number" className="form-control" id="productPrice" name="productPrice" required />
-
-        </div>
-      </div>
-
-      <div className="form-group row">
-        <div className="col-sm-2">
-          <label for="productCate">Category:</label>
-        </div>
-        <div className="col-sm-2">
-          <select name="productCate" id="productCate" className="form-control" required>
-            <option value="Converse">Converse</option>
-          </select>
 
         </div>
       </div>
@@ -102,7 +90,7 @@ const index = () => {
         <div className="col-sm-2">
           <label for="pSaleOff">Discount percent:</label>
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm-6">
           <input type="number" value="0" className="form-control" id="pSaleOff" name="pSaleOff" required />
 
         </div>
@@ -110,10 +98,10 @@ const index = () => {
 
       <div className="form-group row">
         <div className="col-sm-2">
-          <label for="quantity">Quantity:</label>
+          <label for="quantity">File source:</label>
         </div>
-        <div className="col-sm-2">
-          <input type="number" className="form-control" id="quantity" name="quantity" required />
+        <div className="col-sm-6">
+          <input type="file" className="form-control" id="source" name="source" required />
         </div>
       </div>
     </>

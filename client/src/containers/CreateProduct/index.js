@@ -4,7 +4,7 @@ import ProductFormFields from "../../components/ProductFormFields/index"
 const index = () => {
     return (
         <>
-            <div class="d-flex h-100">
+            <div class="d-flex h-100 createProduct">
                 <div class="col-2 pl-0 h-100 w-25 fixed-top">
                     
                 </div>
