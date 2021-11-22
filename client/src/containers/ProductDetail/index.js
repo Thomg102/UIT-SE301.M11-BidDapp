@@ -1,14 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import Header from "../../components/Header/index";
 import { productList } from "../../virtualData/productList";
+import Popup from "../../components/Popup"
 
 const ProductDetail = ({ match }) => {
     const [product, setProduct] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         const product = productList.products.filter(product => product.id === match.params.id)[0];
         setProduct(product);
     }, []);
+    
+    const togglePopup = () => {
+      setIsOpen(!isOpen);
+    }
 
     return (
         <div>
@@ -47,7 +53,8 @@ const ProductDetail = ({ match }) => {
                                         <img className="detail__eth-icon me-3" src={product.isETHOnPolygon ? "https://storage.opensea.io/files/265128aa51521c90f7905e5a43dcb456.svg" : "https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"} />
                                         <span class="card-text detail__price">{product.price}</span>
                                     </div>
-                                    <a href="#" class="btn btn-primary detail__cta-buy text-white mt-4">Buy now</a>
+                                    <button class="btn btn-primary detail__cta-buy text-white mt-4" onClick={togglePopup} >Buy now</button>
+                                    { isOpen && <Popup handleClose={togglePopup} />}
                                 </div>
                             </div>
                         </div>
