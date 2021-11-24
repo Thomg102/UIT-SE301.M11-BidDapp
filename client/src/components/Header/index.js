@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import Web3 from 'web3';
 import axios from 'axios';
 
+import { API_URL } from '../../constant/apiRoutes';
+
 let web3;
 const Header = () => {
     const [account, setAccount] = useState("Connect to wallet");
@@ -19,7 +21,7 @@ const Header = () => {
             window.localStorage.account=accounts[0];
             if (window.localStorage.account == 'undefined') setAccount("Connect to wallet");
 
-            await axios.post(`http://127.0.0.1:5000/api/users`, {
+            await axios.post(`${API_URL}/api/users`, {
               key: accounts[0]
             });
           });
