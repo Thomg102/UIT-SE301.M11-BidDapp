@@ -1,7 +1,7 @@
 import { lazy } from "react";
 
 const route = {
-    path: "/products",
+    path: "/",
     exact: true,
     public: true,
     component: lazy(() => import(".")),
