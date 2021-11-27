@@ -70,6 +70,7 @@ const Header = () => {
         </div>
 
         <div class="header-right align-self-center">
+            <a href={require("../../assets/BlockCommerce.pdf").default} target="_blank" rel="noreferrer">Documentation</a>
             <a href="/products">Products</a>
             <a href="/">Stats</a>
             <a href="/product/create">Create</a>
