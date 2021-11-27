@@ -37,7 +37,7 @@ const Index = () => {
           
           {fileUrl&&(<>
           <p>Link: <a className="fileUrl" href={fileUrl}>{fileUrl}</a></p>
-          <img src={fileUrl} alt="" />
+          <img src={fileUrl} alt="" width="500"/>
           </>)}
         </div>
       </div>
@@ -82,7 +82,6 @@ const Index = () => {
             <option value="Converse1">Converse1</option>
             <option value="Converse2">Converse2</option>
           </select>
-
         </div>
       </div> */}
 

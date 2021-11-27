@@ -39,7 +39,7 @@ const Index = () => {
         const url = `https://ipfs.infura.io/ipfs/${added.path}`;
         console.log(url);
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
-        const object = await contract.methods.createNewProduct(added.path, obj.imgUrl.slice(28), e.target.elements.productPrice.value).send({
+        const object = await contract.methods.createNewProduct(added.path, obj.imgUrl.slice(28), (e.target.elements.productPrice.value*Math.pow(10,18)).toString()).send({
             from: window.localStorage.account,
             gas: 5500000
         })
@@ -61,7 +61,7 @@ const Index = () => {
 
     return (
         <>
-            <div class="d-flex h-100">
+            <div class="d-flex h-100 createProduct">
                 <div class="col-2 pl-0 h-100 w-25 fixed-top">
 
                 </div>
