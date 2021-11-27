@@ -4,6 +4,7 @@ import { create } from 'ipfs-http-client';
 import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
+import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
 
 
 let client = create('https://ipfs.infura.io:5001/api/v0');
@@ -21,17 +22,6 @@ const Index = () => {
             des: e.target.elements.productDesc.value,
             imgUrl: document.getElementsByClassName('fileUrl')[0].innerText
         }
-
-        console.log(obj)
-
-        try {
-            const added = await client.add(JSON.stringify(obj))
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`
-            console.log(url)
-        } catch (error) {
-            console.log('Error uploading file: ', error)
-        }
-
         if (window.ethereum != undefined) {
             web3 = new Web3(window.ethereum);
             if (window.localStorage.account !== undefined)
@@ -45,33 +35,28 @@ const Index = () => {
             alert("Please installing Metamask")
         }
 
-        const contract = await new web3.eth.Contract(Marketplace.abi, '0x11BE658bC506C807779e81C54E49aef0BE472f73');
-
-        const object = await contract.methods.createNewProduct(obj.imgUrl.slice(28), e.target.elements.productPrice.value).send({
+        const added = await client.add(JSON.stringify(obj))
+        const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+        console.log(url);
+        const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
+        const object = await contract.methods.createNewProduct(added.path, obj.imgUrl.slice(28), e.target.elements.productPrice.value).send({
             from: window.localStorage.account,
             gas: 5500000
         })
-            .on("transactionHash", hash => {
-                console.log("Transaction hash: " + hash);
-                alert('Creating.....')
-            })
-            .on("receipt", async (receipt) => {
-                console.log("receipt: " + receipt);
-                // await art.methods.approve(contract.options.address, _tokenId).send({
-                //     from: _performerAddr,
-                //     gas: 5500000
-                // });
-                alert("Created")
-            })
-            .on("error", () => {
-                alert("Something with wrong, such as Img was existed.....")
-            });
-
-        // console.log(e.target.elements.productName.value)
-        // console.log(document.getElementsByClassName('fileUrl')[0].innerText);
-        // console.log(e.target.elements.productShortDesc.value)
-        // console.log(e.target.elements.productDesc.value)
-        // console.log(e.target.elements.productPrice.value)
+        .on("transactionHash", hash => {
+            alert('Creating.....' + hash)
+        })
+        .on("receipt", async (receipt) => {
+            console.log("receipt: " + receipt);
+            // await art.methods.approve(contract.options.address, _tokenId).send({
+            //     from: _performerAddr,
+            //     gas: 5500000
+            // });
+            alert("Created")
+        })
+        .on("error", () => {
+            alert("Something with wrong, such as Img was existed.....")
+        });
     }
 
     return (

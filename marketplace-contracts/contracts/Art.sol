@@ -15,7 +15,9 @@ contract Art is ERC721URIStorage, Ownable {
     mapping(string => bool) public existed;
     mapping(address => uint256[]) public ownerToTokenId;
 
-    constructor() ERC721("MyNFT", "MN") {}
+    constructor(string memory name, string memory symbol)
+        ERC721(name, symbol)
+    {}
 
     function createNewNFT(address _to, string memory _hash)
         public
@@ -32,13 +34,13 @@ contract Art is ERC721URIStorage, Ownable {
 
         _mint(_to, newItemId);
         _setTokenURI(newItemId, _hash);
-        
+
         totalSuply++;
 
         return newItemId;
     }
-    
-    function setOwnerToTokenId(address _to, uint256 _tokenId) public onlyOwner{
+
+    function setOwnerToTokenId(address _to, uint256 _tokenId) public onlyOwner {
         ownerToTokenId[_to].push(_tokenId);
     }
 

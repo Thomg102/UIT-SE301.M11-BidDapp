@@ -43,7 +43,7 @@ contract MarketPlace is Ownable, IMarketPlace {
      * - `_artAddr` cannot be the zero address.
      * - Only owner have right to call this function.
      */
-    function setArtAddr(address _artAddr) public onlyOwner {
+    function setArtAddr(address _artAddr) public override onlyOwner {
         require(_artAddr != address(0));
         art = Art(_artAddr);
     }
