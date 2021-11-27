@@ -10,9 +10,7 @@ const Product = (props) => {
     image,
     shortDesc,
     price,
-    isVerifiedCollection,
-    isETHOnPolygon,
-    leftTime,
+    createdAt,
   } = props;
 
   const handleClick = (id) => {
@@ -22,7 +20,7 @@ const Product = (props) => {
   return (
     <div className="card card-product" onClick={e => { handleClick(id) }}>
       <div className="p-0">
-        <img src={image} className="card-img-top" alt={name} />
+        <img src={image} className="card-img-top" alt={name} height="300"/>
       </div>
 
       <div className="card-body d-flex justify-content-between">
@@ -35,13 +33,13 @@ const Product = (props) => {
           <p className="card-product__price--title">Price</p>
           <div className="d-flex align-items-baseline">
             <div className="me-3">
-                <img className="card-product__eth-icon" src={isETHOnPolygon ? "https://storage.opensea.io/files/265128aa51521c90f7905e5a43dcb456.svg" : "https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"} />
+                <img className="card-product__eth-icon" src={"https://storage.opensea.io/files/265128aa51521c90f7905e5a43dcb456.svg"} />
             </div>
             <p className="card-product__price">{price}</p>
           </div>
           
           <div className="d-flex align-items-baseline">
-            <p>{leftTime && leftTime} left</p>
+            <p>created date{createdAt && createdAt}</p>
           </div>
         </div>
       </div>
