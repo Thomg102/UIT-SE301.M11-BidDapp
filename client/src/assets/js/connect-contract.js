@@ -35,8 +35,7 @@ main()
 
 const createNewProduct = async( _hash, _price, _performerAddr)=>{
     const object = await contract.methods.createNewProduct(_hash, _price).send({
-        from: _performerAddr,
-        gas: null
+        from: _performerAddr
     })
     .on("transactionHash", hash => {
             console.log("Transaction hash: " + hash);
@@ -54,8 +53,7 @@ const createNewProduct = async( _hash, _price, _performerAddr)=>{
 
 const setListOrNot = async(_tokenId, _performerAddr) =>{
     const object = await contract.methods.setListOrNot(_tokenId).send({
-        from: _performerAddr,
-        gas: null
+        from: _performerAddr
     }).on("transactionHash", hash => {
             console.log("Transaction hash: " + hash);
         })
@@ -68,8 +66,7 @@ const setListOrNot = async(_tokenId, _performerAddr) =>{
 
 const setSellOrNot = async(_tokenId, _performerAddr) =>{
     const object = await contract.methods.setSellOrNot(_tokenId).send({
-        from: _performerAddr,
-        gas: null
+        from: _performerAddr
     }).on("transactionHash", hash => {
             console.log("Transaction hash: " + hash);
         })
@@ -82,8 +79,7 @@ const setSellOrNot = async(_tokenId, _performerAddr) =>{
 
 const setPrice= async(_tokenId, _price, _performerAddr) =>{
     const object = await contract.methods.setPrice(_tokenId, _price).send({
-        from: _performerAddr,
-        gas: null
+        from: _performerAddr
     }).on("transactionHash", hash => {
             console.log("Transaction hash: " + hash);
         })
@@ -103,8 +99,7 @@ const getProductListCreated= async(_user, _performerAddr) =>{
 
 const buy= async(_tokenId, _performerAddr) =>{
     const object = await contract.methods.buy(_tokenId).send({
-        from: _performerAddr,
-        gas: null
+        from: _performerAddr
     }).on("transactionHash", hash => {
             console.log("Transaction hash: " + hash);
         })
@@ -123,8 +118,7 @@ const getProducListOwnable= async(_owner, _performerAddr) =>{
 const offer= async(_tokenId, _amount, _token20, _timeout , _performerAddr) =>{
     await web3.eth.Contract(IERC20.abi, _token20).approve(contract.options.address, _amount);
     const object = await contract.methods.offer(_tokenId, _amount, _token20, _timeout).send({
-        from: _performerAddr,
-        gas: null
+        from: _performerAddr
     }).on("transactionHash", hash => {
             console.log("Transaction hash: " + hash);
         })
@@ -143,8 +137,7 @@ const getOffer= async(_tokenId, _index , _performerAddr) =>{
 const approveOffer= async( _tokenId,_index, _performerAddr) =>{
     //approve token721
     const object = await contract.methods.approveOffer(_tokenId,_index).send({
-        from: _performerAddr,
-        gas: null
+        from: _performerAddr
     }).on("transactionHash", hash => {
             console.log("Transaction hash: " + hash);
         })

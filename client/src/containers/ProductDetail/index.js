@@ -48,11 +48,11 @@ const ProductDetail = ({ match }) => {
     const onBuy = () => {
         
         PaypalSend({
-            itemName:product.name,
+            itemName:_product.name,
             destinationEmail:"testing_seller@gmail.com", // PASSWORD: testing_seller
             sourceEmail:"testing_buyer@gmail.com",       // PASSWORD: testing_buyer
             currency:"USD",
-            amount:product.price*100,
+            amount:"0.01",
             onComplete:()=>{console.log('BuyingComplete')}
           });
     }
