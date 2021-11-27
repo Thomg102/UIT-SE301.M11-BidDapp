@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import Header from "../../components/Header/index";
 // import { productList } from "../../virtualData/productList";
 import Popup from "../../components/Popup";
@@ -8,12 +8,13 @@ import Art from '../../contracts/Art.json'
 import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
 
 const ProductDetail = ({ match }) => {
-    const [_product, setProduct] = useState({id: ""});
+    const [_product, setProduct] = useState({});
     const [isOpen, setIsOpen] = useState(false);
+    const componentMounted = useRef(true);
 
-    async function getapi(url) {
+    const getapi = async(url) =>{
         const response = await fetch(url);
-        const data = await response.json();
+        const data = response.json();
         return data
     }
 
@@ -24,19 +25,22 @@ const ProductDetail = ({ match }) => {
         const product = await contract.methods.tokenIdToProduct(match.params.id).call()
         const uri = await artContract.methods.tokenURI(match.params.id).call();
         const productMetadata = await getapi(uri);
-        setProduct({ 
-            id: product.tokenId,
-            image: productMetadata.imgUrl,
-            name: productMetadata.name,
-            shortDesc: productMetadata.shortDes,
-            price: product.price/Math.pow(10,18),
-            createdAt: product.timestamp,
-            endDate: 'April 18, 2022 at 10:21am +07',
-            creator: product.creator
-        })
+        if (componentMounted.current){
+            setProduct({ 
+                id: product.tokenId,
+                image: productMetadata.imgUrl,
+                name: productMetadata.name,
+                shortDesc: productMetadata.shortDes,
+                price: product.price/Math.pow(10,18),
+                createdAt: product.timestamp,
+                endDate: 'April 18, 2022 at 10:21am +07',
+                creator: product.creator
+            })
+        }
         console.log("hello")
 
         return () => {
+            componentMounted.current =false;
         };
     }, []);
     

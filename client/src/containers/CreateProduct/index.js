@@ -5,12 +5,12 @@ import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
-
+import { useAlert } from 'react-alert'
 
 let client = create('https://ipfs.infura.io:5001/api/v0');
 let web3;
 const Index = () => {
-
+    const alert = useAlert()
     const [fileUrl, updateFileUrl] = useState(``)
     const [account, setAccount] = useState("Connect to wallet");
 
@@ -32,7 +32,7 @@ const Index = () => {
                     window.localStorage.account = result[0];
                 })
         } else {
-            alert("Please installing Metamask")
+            alert.show("Please installing Metamask")
         }
 
         const added = await client.add(JSON.stringify(obj))
@@ -44,7 +44,7 @@ const Index = () => {
             gas: 5500000
         })
         .on("transactionHash", hash => {
-            alert('Creating.....' + hash)
+            alert.show('Creating.....' + hash)
         })
         .on("receipt", async (receipt) => {
             console.log("receipt: " + receipt);
@@ -52,10 +52,10 @@ const Index = () => {
             //     from: _performerAddr,
             //     gas: 5500000
             // });
-            alert("Created")
+            alert.show("Created")
         })
         .on("error", () => {
-            alert("Something with wrong, such as Img was existed.....")
+            alert.show("Something with wrong, such as Img was existed.....")
         });
     }
 
