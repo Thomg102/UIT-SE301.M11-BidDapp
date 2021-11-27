@@ -1,8 +1,10 @@
 import React from "react";
 import { useAlert } from 'react-alert'
 
+import PaypalSend from '../../assets/js/connect-paypal';
+
 const Popup = props => {
-    const alert = useAlert()
+    const alert = useAlert();
 
   return (
     <div className="popup-box">
@@ -12,7 +14,8 @@ const Popup = props => {
         <div className="d-flex justify-content-around mt-5">
             <button className="btn-secondary popup__btn" onClick={props.handleClose} >Cancel</button>
             <button className="btn-success popup__btn" onClick={() => {
-                alert.show(<div style={{ color: 'white' }}>Some Message</div>)
+                alert.show(<div style={{ color: 'white' }}>Some Message</div>);
+                props.onBuy();
       }} >Buy</button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Header from "../../components/Header/index";
-// import { productList } from "../../virtualData/productList";
+import { productList } from "../../virtualData/productList";
+import PaypalSend from '../../assets/js/connect-paypal';
 import Popup from "../../components/Popup";
 import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
@@ -44,6 +45,18 @@ const ProductDetail = ({ match }) => {
         setIsOpen(!isOpen);
     }
 
+    const onBuy = () => {
+        
+        PaypalSend({
+            itemName:_product.name,
+            destinationEmail:"testing_seller@gmail.com", // PASSWORD: testing_seller
+            sourceEmail:"testing_buyer@gmail.com",       // PASSWORD: testing_buyer
+            currency:"USD",
+            amount:"0.01",
+            onComplete:()=>{console.log('BuyingComplete')}
+          });
+    }
+
     return (
         <div>
             { _product && 
@@ -82,7 +95,23 @@ const ProductDetail = ({ match }) => {
                                         <span class="card-text detail__price">{_product.price}</span>
                                     </div>
                                     <button class="btn btn-primary detail__cta-buy text-white mt-4" onClick={togglePopup} >Buy now</button>
-                                    { isOpen && <Popup handleClose={togglePopup} />}
+                                    { isOpen && <Popup handleClose={togglePopup} onBuy={onBuy} />}
+                                    {/* it doesn't work
+                                    <PayPalButton 
+                                        currency="USD"
+                                        env="development"
+                                        commit="true"
+                                        client="AV8WXgByNK0HdE2sSvIrZgbZ5K8Bphc3u8YXAxftkXdaV9aWitL0"
+                                        itemName={product.name}
+                                        destinationEmail="testing_seller@example.com" 
+                                        sourceEmail="testing_buyer@example.com" //TODO
+                                        amount={product.price * 100}
+                                        onSuccess=""
+                                        onError=""
+                                        onCancel="">
+
+                                    </PayPalButton>
+                                    // */}
                                 </div>
                             </div>
                         </div>
