@@ -1,13 +1,23 @@
-//@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
-@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+//@import "../../../node_modules/bootstrap/scss/functions";
 
 @import "abstracts/mixins";
 @import "abstracts/variables";
+@import "abstracts/aos.min";
+@import "abstracts/slick.min";
 
-@import "../../../node_modules/bootstrap/scss/variables";
-@import "../../../node_modules/bootstrap/scss/mixins";
+// @import "../../../node_modules/bootstrap/scss/variables";
+// @import "../../../node_modules/bootstrap/scss/mixins";
 
-@import "../../../node_modules/bootstrap/scss/grid";
+// @import "../../../node_modules/bootstrap/scss/root";
+// @import "../../../node_modules/bootstrap/scss/reboot";
+// @import "../../../node_modules/bootstrap/scss/type";
+// @import "../../../node_modules/bootstrap/scss/images";
+// @import "../../../node_modules/bootstrap/scss/containers";
+// @import "../../../node_modules/bootstrap/scss/transitions";
+// @import "../../../node_modules/bootstrap/scss/pagination";
+// @import "../../../node_modules/bootstrap/scss/grid";
+// @import "../../../node_modules/bootstrap/scss/bootstrap-grid";
 
 @import "base/base";
 @import "base/icon";
@@ -15,6 +25,8 @@
 @import "components/btn";
 @import "components/card-product";
 @import "components/footer";
+
+@import "fontawesome/fontawesome.scss";
 
 @import "components/header";
 @import "components/filter-bar";
