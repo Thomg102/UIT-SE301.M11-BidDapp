@@ -1,21 +1,28 @@
-import React from 'react'
-import { FilePond, registerPlugin } from 'react-filepond';
-import 'filepond/dist/filepond.min.css';
+import React from 'react';
+import { useState, useContext } from 'react';
+import  {create}  from 'ipfs-http-client';
 
-import FilePondPluginImageResize from 'filepond-plugin-image-resize';
-import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
-import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+let client = create('https://ipfs.infura.io:5001/api/v0');
 
-registerPlugin(FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginFileEncode, FilePondPluginImageExifOrientation)
+const Index = () => {
 
-const index = () => {
+  const [fileUrl, updateFileUrl] = useState(``)
+
+  async function onChangeInput(e) {
+    const file = e.target.files[0]
+    try {
+      const added = await client.add(file)
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      updateFileUrl(url)
+    } catch (error) {
+      console.log('Error uploading file: ', error)
+    }  
+  }
   return (
     <>
       <div className="form-group row">
         <label for="productName" className="col-sm-2">Name</label>
-        <div className="col-sm-6">
+        <div className="col-sm-5">
           <input type="text" name="productName" id="productName" className="form-control" required />
 
         </div>
@@ -23,19 +30,15 @@ const index = () => {
 
       <div className="form-group row">
         <div className="col-sm-2">
-          <label for="productImg">Cover Image</label>
-        </div>
-        <div className="col-sm-6">
-          <FilePond allowMultiple={false} server="/api" />
-        </div>
-      </div>
-
-      <div className="form-group row">
-        <div className="col-sm-2">
           <label for="images">Images</label>
         </div>
-        <div className="col-sm-6">
-          <FilePond allowMultiple={true} maxFiles={3} server="/api" />
+        <div className="col-sm-5">
+          <input type="file" name="image" onChange={(e)=>onChangeInput(e)} />
+          
+          {fileUrl&&(<>
+          <p>Link: <a className="fileUrl" href={fileUrl}>{fileUrl}</a></p>
+          <img src={fileUrl} alt="" width="500"/>
+          </>)}
         </div>
       </div>
 
@@ -43,7 +46,7 @@ const index = () => {
         <div className="col-sm-2">
           <label for="productShortDesc">Description:</label>
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-5">
           <textarea className="form-control" id="productShortDesc" rows="3" maxlength="250" name="productShortDesc"
             required></textarea>
 
@@ -54,7 +57,7 @@ const index = () => {
         <div className="col-sm-2">
           <label for="productDesc">Detail:</label>
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-5">
           <textarea className="form-control" id="productDesc" rows="3" name="productDesc" required></textarea>
 
         </div>
@@ -64,13 +67,25 @@ const index = () => {
         <div className="col-sm-2">
           <label className="productPrice">Price:</label>
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-5 d-flex">
           <input type="number" className="form-control" id="productPrice" name="productPrice" required />
-
         </div>
       </div>
 
-      <div className="form-group row">
+      {/* <div className="form-group row">
+        <div className="col-sm-2">
+          <label for="productCate">Category:</label>
+        </div>
+        <div className="col-sm-2">
+          <select name="productCate" id="productCate" className="form-control" required>
+            <option value="Converse">Converse</option>
+            <option value="Converse1">Converse1</option>
+            <option value="Converse2">Converse2</option>
+          </select>
+        </div>
+      </div> */}
+
+      {/* <div className="form-group row">
         <div className="col-sm-2">
           <p>Condition:</p>
         </div>
@@ -84,28 +99,9 @@ const index = () => {
             <label className="form-check-label" for="false">False</label>
           </div>
         </div>
-      </div>
-
-      <div className="form-group row">
-        <div className="col-sm-2">
-          <label for="pSaleOff">Discount percent:</label>
-        </div>
-        <div className="col-sm-6">
-          <input type="number" value="0" className="form-control" id="pSaleOff" name="pSaleOff" required />
-
-        </div>
-      </div>
-
-      <div className="form-group row">
-        <div className="col-sm-2">
-          <label for="quantity">File source:</label>
-        </div>
-        <div className="col-sm-6">
-          <input type="file" className="form-control" id="source" name="source" required />
-        </div>
-      </div>
+      </div> */}
     </>
   )
 }
 
-export default index
+export default Index
