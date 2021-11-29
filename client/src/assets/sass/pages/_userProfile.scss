@@ -7,6 +7,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    background-color: gray;
 }
 
 .avt_img{
@@ -17,15 +18,33 @@
     height: 150px;
     width: 150px;
     border-radius: 50%;
+    border: 10px solid white;
+    background-color: gainsboro;
 }
 
 .userInfo{
-    margin-top: 100px;
+    margin-top: 70px;
     text-align: center;
     font-size: 15px;
     .fullName{
         font-size: 30px;
         font-weight: bold;
+        padding-left: 30px;
+        padding-right: 10px;
+    }
+    .email{
+      font-size: 18px;
+    }
+    .editBtn{
+      background: none;
+      border: none;
+      font-size: 20px;
+      padding-top: 5px;
+    }
+    .fullName, .editBtn{
+      display: inline-block;
+      vertical-align: middle;
+      margin: 10px 0;
     }
 }
 
