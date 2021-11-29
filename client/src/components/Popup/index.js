@@ -1,20 +1,42 @@
 import React from "react";
 import { useAlert } from 'react-alert'
 
-const Popup = props => {
-    const alert = useAlert()
+import PaypalSend from '../../assets/js/connect-paypal';
 
+const Popup = props => {
+    const alert = useAlert();
   return (
     <div className="popup-box">
       <div className="box">
-        <span className="close-icon fw-bold" onClick={props.handleClose}>x</span>
-            Are you sure to buy the item?
+
+        {
+          props.isETH?(
+            <div>
+              <span className="close-icon fw-bold" onClick={props.handleClose}>x</span>
+              <p>Are you sure to buy the item with ETH?</p>
+              <div className="d-flex justify-content-around mt-5">
+                <button className="btn-secondary popup__btn" onClick={props.handleClose} >Cancel</button>
+                <button className="btn-success popup__btn" onClick={() => {
+                    alert.show(<div style={{ color: 'white' }}>Pay by ETH</div>);
+                    props.handleClose();
+                    props.onBuy();}} >Buy</button>
+              </div>
+            </div>
+          ):(
+            <div>
+              <span className="close-icon fw-bold" onClick={props.handleClose}>x</span>
+            Are you sure to buy the item with USD?
         <div className="d-flex justify-content-around mt-5">
             <button className="btn-secondary popup__btn" onClick={props.handleClose} >Cancel</button>
             <button className="btn-success popup__btn" onClick={() => {
-                alert.show(<div style={{ color: 'white' }}>Some Message</div>)
-      }} >Buy</button>
+                alert.show(<div style={{ color: 'white' }}>Pay by USD</div>);
+                props.handleClose();
+                props.onBuy();}} >Buy</button>
         </div>
+        </div>
+          )
+        }
+
       </div>
     </div>
   );

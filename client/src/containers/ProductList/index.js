@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useRef, useLayoutEffect, useState} from 'react';
 import Product from '../../components/Product/index';
 // import { productList } from "../../virtualData/productList";
 import Header from "../../components/Header/index";
@@ -10,10 +10,11 @@ import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
+    const componentMounted = useRef(true);
 
-    async function getapi(url) {
+    const getapi = async(url) =>{
         const response = await fetch(url);
-        var data = await response.json();
+        const data = await response.json();
         return data
     }
 
@@ -22,8 +23,8 @@ const ProductList = () => {
         const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR);
         const totalSupply = await artContract.methods.totalSuply().call();
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
-        for (var i=1; i<= totalSupply;i++){
-            let product = await contract.methods.tokenIdToProduct(i).call()
+        for (let i=1; i<= totalSupply;i++){
+            const product = await contract.methods.tokenIdToProduct(i).call()
             const uri = await artContract.methods.tokenURI(i).call();
 
             const productMetadata = await getapi(uri);
@@ -39,7 +40,11 @@ const ProductList = () => {
                 creator: product.creator
             }])
         }
-        
+
+        return()=>{
+            setProducts([]);
+            componentMounted.current =false;
+        }
     }, [])
     return (
         <>
