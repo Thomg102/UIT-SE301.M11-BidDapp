@@ -1,0 +1,31 @@
+{
+  "name": "blockcommerce",
+  "version": "1.0.0",
+  "description": "BlockCommerece - npm package for Ethereum projects",
+  "main": "index.js",
+  "engine": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
+  "scripts": {
+    "backend": "nodemon api/server.js",
+    "front": "npm run start --prefix client",
+    "start": "concurrently \"npm run backend\" \"npm run front\""
+  },
+  "author": "uit-se301.m11-bidapp",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^8.2.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongo": "^0.1.0",
+    "mongoose": "^5.12.2",
+    "mongoose-sequence": "^5.3.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.4.0",
+    "nodemon": "^2.0.15"
+  }
+}

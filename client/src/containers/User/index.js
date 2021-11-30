@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from "react";
 // import { userList } from "../../virtualData/userList";
 import InfoPopup from "../../components/InfoPopup/index";
@@ -9,13 +10,15 @@ const User = ({ match }) => {
     const [user, setUser] = useState({});
     const [account, setAccount] = useState("Connect to wallet");
     const [currentUser, setCurrentUser] = useState({});
-    // const fetchUser = async() => {
-    //     const res = await axios.get('https://localhost:5000/:address');
-    //     setUser(res.data);
-    // }
-    // useEffect(() =>{
-    //     fetchUser();
-    // })
+    const fetchUser = async() => {
+        let userAdd = match.params.id;
+        const res = await axios.get(`${API_URL}/api/users/` + userAdd);
+        setUser(res.data);
+    }
+    useEffect(() =>{
+        fetchUser();
+        console.log(user)
+    }, [])
 
     useEffect(async() => {
         const ethereum = window.ethereum;
@@ -56,22 +59,22 @@ const User = ({ match }) => {
         <div>
             <div>
                 <div class = "bg"></div>
-                <div class = "avt_img"></div>
+                <div class = "avt_img">{/*<img src={user[0].avatarImage} alt="avatar" />*/}</div>
                
             </div>    
             <div class = "userInfo">
-                    <p class = "fullName">{user.name}</p>
+                    <p class = "fullName">{user[0].name}</p>
                     <button onClick={togglePopup} class = "editBtn"> <i class="fa fa-edit"> </i> </button>
                     {isOpen && <InfoPopup
                         content={
                             <>
                                 <div class = "nameField">
                                     <p>Name: </p>
-                                    <input type = "text" value = {user.name}></input>
+                                    <input type = "text" value = {user[0].name}></input>
                                 </div>
                                 <div class = "emailField">
                                     <p>Email: </p>
-                                    <input type = "text" value = {user.email}></input>
+                                    <input type = "text" value = {user[0].email}></input>
                                 </div>
                                 <br/>
                                 <div class="d-flex justify-content-end">
@@ -83,9 +86,9 @@ const User = ({ match }) => {
                         handleClose={togglePopup}
                         />
                     }
-                    <p class = "email">{user.email}</p>
+                    <p class = "email">{user[0].email}</p>
                     <p class = "keyString">{account}</p>
-                    <p>Joined {user.joinedDate}</p>
+                    <p>Joined {user[0].joinedDate}</p>
                     
             </div>  
             <div class = "navigationsOfActions">
