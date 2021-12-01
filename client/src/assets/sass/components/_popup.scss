@@ -5,6 +5,7 @@
     height: 100vh;
     top: 0;
     left: 0;
+    z-index: 10000000;
   }
    
   .box {
@@ -25,7 +26,7 @@
     content: 'x';
     cursor: pointer;
     position: fixed;
-    right: calc(38% - 30px);
+    right: calc(36% - 30px);
     top: calc(100vh - 85vh - 33px);
     background: #ededed;
     width: 25px;

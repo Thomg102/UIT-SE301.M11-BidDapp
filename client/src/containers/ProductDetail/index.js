@@ -9,12 +9,15 @@ import Art from '../../contracts/Art.json'
 import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
 import { useAlert } from 'react-alert';
 import { Redirect } from "react-router-dom";
+import InfoPopup from '../../components/InfoPopup';
 
 const ProductDetail = ({ match }) => {
     const alert = useAlert()
     const [_product, setProduct] = useState({});
     const [isOpen, setIsOpen] = useState(false);
     const [isETH, setIsETH] =useState(false);
+    const [isUSD, setIsUSD] = useState(false);
+    const [isOffer, setIsOffer] = useState(true);
     const componentMounted = useRef(true);
     const [redirect, setRedirect] = useState(false);
     const [disable, setDisable] =useState(false);
@@ -66,6 +69,15 @@ const ProductDetail = ({ match }) => {
     const toggleETH = (bool)=>{
         setIsETH(bool);
     }
+
+    const toggleUSD = (bool)=>{
+        setIsUSD(bool);
+    }
+
+    const toggleOffer = (bool) => {
+        setIsOffer(bool);
+    }
+
     const onBuy = () => {
         
         PaypalSend({
@@ -170,12 +182,38 @@ const ProductDetail = ({ match }) => {
                                         <span class="card-text detail__price">{_product.price}</span>
                                     </div>
                                     
-                                    <button class="btn btn-primary detail__cta-buy text-white mt-4" onClick={()=>{togglePopup(); toggleETH(false)}} width="175" disabled={disable}>Buy (USD)</button>
+                                    <button class="btn btn-primary detail__cta-buy text-white mt-4" onClick={()=>{togglePopup(); toggleUSD(true)}} width="175" disabled={disable}>Buy (USD)</button>
                                     <button class="btn btn-primary detail__cta-buy text-white mt-4 ml-4" onClick={()=>{togglePopup(); toggleETH(true)}} width="175" disabled={disable}>Buy (ETH)</button>
-                                    <button class="btn btn-primary detail__cta-buy text-white mt-4 ml-4" onClick={togglePopup} style={{width: "175px" }} disabled={disable}>Offer</button>
+                                    <button class="btn btn-primary detail__cta-buy text-white mt-4 ml-4" onClick={() => {togglePopup(); toggleETH(false); toggleUSD(false) ; toggleOffer(true)}} disabled={disable}>Offer</button>
                                     
-                                    
-                                    { isOpen && (isETH?<Popup handleClose={togglePopup} onBuy={onBuyETH} isETH={isETH} />:<Popup handleClose={togglePopup} onBuy={onBuy} isETH={isETH} />)}
+                                    { isOpen && (isETH?<Popup handleClose={togglePopup} onBuy={onBuyETH} isETH={isETH} />
+                                                :(isUSD?<Popup handleClose={togglePopup} onBuy={onBuy} isETH={isETH} />:<InfoPopup
+                                                    content={
+                                                        <>
+                                                            <div>
+                                                                <p>Address: </p>
+                                                                <input type = "text"></input>
+                                                            </div>
+                                                            <div>
+                                                                <p>Quantity: </p>
+                                                                <input type = "number" min = "1" value = "1" max = "999"></input>
+                                                            </div>
+                                                            <div>
+                                                                <p>Date: </p>
+                                                                <input type = "date"></input>
+                                                            </div>
+                                                            <br/>
+                                                            <div class="d-flex justify-content-end">
+                                                                <button class = "okBtn">Sumbit</button>
+                                                                <button onClick={togglePopup}>Cancel</button>
+                                                            </div>
+                                                        
+                                                    </>}
+                                                    handleClose={togglePopup}
+                                                />))
+                                             
+                                    }
+
                                     {
                                         redirect && <Redirect to={"/product/" + match.params.id} />
                                     }
@@ -186,8 +224,31 @@ const ProductDetail = ({ match }) => {
                                         <div class="card-header detail__catalog-title">
                                             Offer List
                                         </div>
-                                        <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
-                                            <p class="card-text">Offer</p>
+                                        <div class ="card-header border-top detail__catalog-content">
+                                            <div class = "container-sm">
+                                                        <div class = "row offerLabel">
+                                                            <div class = "col-4">User</div>
+                                                            <div class = "col-4">Quantity</div>
+                                                        </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card-body border-top detail__catalog-content">
+                                            <div class="card-text">
+                                                <div class = "container-sm">
+                                                    <div class = "row">
+                                                        <div class = "col-4 addressOfferList">
+                                                            <p>0x029...310</p>
+                                                        </div>
+                                                        <div class = "col-4 quantityOfferList">
+                                                            <p>1</p>
+                                                        </div>
+                                                        <div class = "col-4 approveBtn">
+                                                            <button class ="btn btn-primary detail__cta-buy text-white mt-4">Approve</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
                                             <p class="card-text">Offer</p>
