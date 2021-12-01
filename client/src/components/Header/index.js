@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Web3 from 'web3';
 import axios from 'axios';
-
 import { API_URL } from '../../constant/apiRoutes';
-
 let web3;
 const Header = () => {
     const [account, setAccount] = useState("Connect to wallet");
@@ -60,7 +58,9 @@ const Header = () => {
 
     return (
     <div class="header d-flex justify-content-between">
-        <a href="/" className="logo">BlockCommerce</a>
+        <a href="/" className="logo">
+        <img src="https://i.ibb.co/93Zwkd6/Block-Commerce-Logo.png" alt="BlockCommerce Logo" width = "50" height="50"/> BlockCommerce
+        </a>
 
         <div className = "search-bar align-self-center">
             <form action="/action_page.php">
