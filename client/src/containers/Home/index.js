@@ -1,8 +1,55 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { makeStyles, Button, Avatar, Divider } from '@material-ui/core';
+import { GetApp } from '@material-ui/icons';
 import ImportScriptHook from '../../components/ImportScriptHook/index'
+import { ReactComponent as ReactMediaEther } from '../../assets/pictures/media_ether_1.svg'
+import { ReactComponent as ReactMediaBitcoin } from '../../assets/pictures/media_bitcoin.svg'
+import { ReactComponent as ReactMediaShopping } from '../../assets/pictures/media_shopping.svg'
+import { ReactComponent as ReactWindowIcon } from '../../assets/pictures/windows.svg'
 
-const index = () => {
+const useStyles = makeStyles(() => ({
+    mediaEther: {
+      width: '550px'
+    },
+    mediaBitcoin: {
+        width: '200px',
+        position: 'absolute',
+        top: '-250px',
+        right: '-50px'
+    },
+    mediaShopping: {
+        width: '500px'
+    },
+    windowIcon: {
+        width: '50px',
+        height: 'auto'
+    },
+    btnDown: {
+        fontSize: '15px',
+        background: '#F7931A',
+        marginTop: '10px'
+    },
+    avtOrange: {
+        background: '#FF5722'
+    },
+    avtPurple: {
+        background: '#673AB7'
+    },
+    avtGreen: {
+        background: '#44A833'
+    },
+    avtYellow: {
+        background: '#F7931A'
+    },
+    avtRed: {
+        background: '#F50015'
+    }
+  }));
+
+const Home = () => {
+    const classes = useStyles();
+
     ImportScriptHook('./js/vendor.min.js')
     ImportScriptHook('./js/plugins/aos/aos.min.js')
     ImportScriptHook('./js/plugins/slick/slick.min.js')
@@ -11,57 +58,49 @@ const index = () => {
     return (
         <div data-theme-mode-panel-active data-theme="light" style={{ "font-family": 'Mazzard H' }}>
             <div className="site-wrapper overflow-hidden position-relative">
-                {/* /* Site Header -->
-                /* Preloader -->*/}
-                {/* <div id="loading">
-                    <div className="preloader">
-                        <img src="../../assets/pictures/home/preloader.gif" alt="preloader" />
-                    </div>
-                </div> */}
-                {/* -->
-                /*Site Header Area --> */}
-                {/* /* navbar- -->
-                /* Hero Area --> */}
                 <div className="hero-area-l11 position-relative z-index-1 overflow-hidden">
                     <div className="container position-relative">
-                        <div className="row position-relative justify-content-center">
-                            <div className="col-xl-8 col-lg-9 col-md-12 order-lg-1 order-1" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+                        <div className="row position-relative justify-content-center align-items-center">
+                            <div className="col-7" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
                                 <div className="content">
-                                    <h1>BlockCommerce<br className="d-none d-md-block" /> built for software.</h1>
+                                    <h1 style={{color: '#53A1FC'}}>BlockCommerce</h1>
                                     <div className="row banner-l-11-bottom-content">
-                                        <div className="col-lg-8 col-md-8 col-sm-10">
+                                        <div className="col-10">
                                             <p className="position-relative banner-main-content-l-11">Provide you with a package secured by Blockchain
                                                 and Smart Contract to build, manage and revise all aspect between bulding and developing
                                                 software for Ethereum ecommerce projects.
                                                 <span className="line-left-content"></span>
                                             </p>
                                         </div>
-                                        <div className="col-lg-4 col-md-4 col-sm-6 flex-y-center ">
-                                            <a className="btn l-11-hero-btn" href="#">Download free trial</a>
+                                        <div className="col-12 flex-y-center ">
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.btnDown}
+                                            startIcon={<GetApp />}
+                                        >
+                                            Download for free
+                                        </Button>
                                         </div>
                                         <div className="col-xl-3 col-lg-4">
                                             <div className="compitable-text border-top d-inline-block">
                                                 <p>Compatible with:</p>
                                                 <div className="compatible-icon flex-y-center img-grayscale">
-                                                    <a href="#" className="font-size-13 mr-7"><img src={require("../../assets/pictures/home/l2/windows.svg").default} alt="" /></a>
-                                                    {/* /* <a href="#" className="font-size-13 mr-7"><img src="../../assets/pictures/home/l2/apple.svg" alt=""/></a>
-                        <a href="#" className="font-size-13"><img src="../../assets/pictures/home/l2/penguine.svg" alt=""/></a> --> */}
+                                                    <ReactWindowIcon className={classes.windowIcon} />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-9 order-lg-1 order-0" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
-                                <img src={require("../../assets/pictures/home/l2/blockCommerceCode.png").default} alt="" className="w-100 hero-l11-main-image" />
+                            <div className="col-5 position-relative">
+                                <ReactMediaBitcoin className={classes.mediaBitcoin} />
+                                <ReactMediaShopping className={classes.mediaShopping} />
                             </div>
                         </div>
                     </div>
                     <div className="hero-shape-l11-1 d-none d-md-block">
-                        <img src={require("../../assets/pictures/home/l2/hero-shape-1.svg").default} alt="" />
-                    </div>
-                    <div className="hero-shape-l11-2 d-none d-md-block">
-                        <img src={require("../../assets/pictures/home/l2/hero-shape-2.png").default} alt="" />
+                        <img src={require("../../assets/pictures/hero-shape-1.svg").default} alt="" />
                     </div>
                 </div>
                 {/* /* Brand-area -->
@@ -71,7 +110,6 @@ const index = () => {
                         <div className="row align-items-center justify-content-lg-start justify-content-center">
                             <div className="col-xl-6 col-md-5 col-md-10" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
                                 <div className="content-img position-relative z-index-1">
-                                    <img src={require("../../assets/pictures/home/l2/content-img1.png").default} alt="" className="w-100" />
                                 </div>
                             </div>
                             <div className="offset-xxl-1 col-xxl-5 col-xl-6 col-lg-7 col-md-9" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
@@ -126,7 +164,6 @@ const index = () => {
                             </div>
                             <div className="col-xxl-6 offset-xxl-2 col-xl-6 col-lg-5 col-md-9 order-lg-1 order-0" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
                                 <div className="content-img">
-                                    <img src={require("../../assets/pictures/home/l2/content-img2.png").default} alt="" className="w-lg-auto w-100" />
                                 </div>
                             </div>
                         </div>
@@ -137,8 +174,8 @@ const index = () => {
                     <div className="container">
                         <div className="row align-items-center justify-content-center justify-content-lg-start">
                             <div className="col-xl-6 col-lg-6 col-md-8 order-lg-1 order-0" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
-                                <div className="content-img">
-                                    <img src={require("../../assets/pictures/home/l2/content-img3.png").default} alt="" className="w-100" />
+                                <div className="content-img media-ether">
+                                    <ReactMediaEther className={classes.mediaEther}/>
                                 </div>
                             </div>
                             <div className="offset-xl-1 col-xl-5 col-lg-6 col-md-9 order-lg-1 order-1" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
@@ -358,9 +395,40 @@ const index = () => {
                     </div>
                 </div>
             </div>
+            <div className="newsletter-l-11 mt-150">
+                <div className="container">
+                    <h2 className="text-center fw-bold mb-5 fs-1 border-top pt-5">My teams</h2>
+                    <div className="user-identity d-flex justify-content-center">
+                        <div className="d-flex align-items-center">
+                            <Avatar className={classes.avtOrange}>MT</Avatar>
+                            <p className="member_name">Tho Mai</p>
+                        </div>
+
+                        <div className="d-flex align-items-center">
+                            <Avatar className={classes.avtPurple}>PD</Avatar>
+                            <p className="member_name">Dung Phan</p>
+                        </div>
+                        
+                        <div className="d-flex align-items-center">
+                            <Avatar className={classes.avtYellow}>NL</Avatar>
+                            <p className="member_name">Long Nguyen</p>
+                        </div>
+                        
+                        <div className="d-flex align-items-center">
+                            <Avatar className={classes.avtRed}>TL</Avatar>
+                            <p className="member_name">Lan Truong</p>
+                        </div>
+                        
+                        <div className="d-flex align-items-center">
+                            <Avatar className={classes.avtGreen}>TL</Avatar>
+                            <p className="member_name">Long Tuong</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     )
 }
 
-export default index
+export default Home

@@ -1,160 +1,22 @@
 .footer {
     width: 100%;
-    height: auto;
-    color: rgb(255, 255, 255);
-    display: flex;
-    -moz-box-pack: center;
-    justify-content: center;
-    position: relative;
-    background-color: rgb(24, 104, 183);
     margin-top: 10rem;
+    background: #333;
+    padding: 2rem 0;
+
+    & * {
+        color: #fff;
+    }
 
     &__container {
-        width: 82.5%;
-    }
-
-    &__column {
-        flex-direction: column;
-    }
-
-    &__row {
         display: flex;
-        flex-wrap: wrap;
-        padding-bottom: 40px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid rgba(229, 232, 235, 0.25);
-    }
-
-    &__bottom {
-        -moz-box-align: center;
-        align-items: center;
-        -moz-box-pack: justify;
         justify-content: space-between;
-        font-size: 12px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-    }
-
-    &__half {
-        width: 50%;
-        padding-top: 40px;
-        align-items: flex-start;
-        text-align: left;
-    }
-
-    &__section_header {
-        color: rgb(255, 255, 255);
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 8px;
-        margin-top: 8px;
-    }
-
-    &__link_header {
-        font-size: 16px;
-        font-weight: 600;
-        color: rgb(255, 255, 255);
-    }
-
-    &__link {
-        text-align: initial;
-        color: rgb(251, 253, 255);
-        font-size: 14px;
-        margin-top: 12px;
+        width: 82.5%;
+        margin: 0 auto;
     }
 
     &__text {
-        font-size: 16px;
-        color: rgb(251, 253, 255);
-    }
-
-    &__social-button {
-        margin-right: 12px;
-        width: 54px;
-        height: 54px;
-        margin-top: 8px;
-        display: inline-flex;
-        flex-direction: row;
-        -moz-box-align: center;
-        align-items: center;
-        border-radius: 10px;
-        -moz-box-pack: center;
-        justify-content: center;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 12px 20px;
-        background-color: rgb(32, 129, 226);
-        border: 1px solid rgb(32, 129, 226);
-        color: rgb(255, 255, 255);
-    }
-
-    &__bottom {
-        display: flex;
-        -moz-box-align: center;
-        align-items: center;
-        -moz-box-pack: justify;
-        justify-content: space-between;
-        font-size: 12px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-
-        &__section {
-            -moz-box-pack: start;
-            justify-content: flex-start;
-            text-align: initial;
-        }
-    }
-}
-
-.sm {
-    &__mailing {
-        &__form {
-            display: flex;
-            margin-top: 10px;
-            
-            &__input {
-                font-size: 15pt;
-                border-radius: 10px;
-                padding-left: 20px;
-                margin-right: 10px;
-                width: 100%;
-            }
-
-            &__button {
-                display: inline-flex;
-                flex-direction: row;
-                -moz-box-align: center;
-                align-items: center;
-                border-radius: 10px;
-                -moz-box-pack: center;
-                justify-content: center;
-                font-size: 16px;
-                font-weight: 600;
-                padding: 12px 20px;
-                background-color: rgb(32, 129, 226);
-                border: 1px solid rgb(32, 129, 226);
-                color: rgb(255, 255, 255);
-                width: 162px;
-            }
-        }
-    }
-
-    &__contacts {
-        padding-left: 64px;
-    }
-}
-
-.outtro {
-    &__aboutus {
-        &__name {
-            text-decoration: none;
-        }
-    }
-
-    &__link {
-        padding-top: 40px;
-        padding-left: 72px;
+        font-size: 13px;
+        margin: 0;
     }
 }
