@@ -75,7 +75,7 @@ const Header = () => {
     }
 
     return (
-    <AppBar color="inherit" position="static">
+    <AppBar color="inherit" position="static" className="mb-5">
     <Toolbar>
     <div class="header d-flex justify-content-between">
         <a href="/" className="logo">

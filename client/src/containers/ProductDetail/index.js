@@ -1,4 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
+import { Alert, AlertTitle } from '@material-ui/lab'
 import Header from "../../components/Header/index";
 import { productList } from "../../virtualData/productList";
 import PaypalSend from '../../assets/js/connect-paypal';
@@ -7,12 +8,10 @@ import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
-import { useAlert } from 'react-alert';
 import { Redirect } from "react-router-dom";
 import InfoPopup from '../../components/InfoPopup';
 
 const ProductDetail = ({ match }) => {
-    const alert = useAlert()
     const [_product, setProduct] = useState({});
     const [isOpen, setIsOpen] = useState(false);
     const [isETH, setIsETH] =useState(false);
@@ -38,8 +37,16 @@ const ProductDetail = ({ match }) => {
         const ownerof= await artContract.methods.ownerOf(product.tokenId).call();
         if (!product.selling || ownerof.toUpperCase() == window.localStorage.account.toUpperCase()){
             setDisable(true)
-            if (!product.selling) alert.show("This product's owner haven't bought yet!")
-            if (ownerof.toUpperCase() == window.localStorage.account.toUpperCase()) alert.show("You are this product's owner!")
+            if (!product.selling) {
+                <Alert severity="info">
+                    This product's owner haven't bought yet!
+                </Alert>
+            } 
+            if (ownerof.toUpperCase() == window.localStorage.account.toUpperCase()) {
+                <Alert severity="info">
+                    You are this product's owner!
+                </Alert>
+            } 
         } 
         if (componentMounted.current){
             setProduct({ 
@@ -96,16 +103,23 @@ const ProductDetail = ({ match }) => {
                     from: window.localStorage.account,
                     gas: 5500000
                 }).on("transactionHash", hash => {
-                    console.log(hash)
-                    alert.show('Creating..... ' + hash)
+                    console.log(hash);
+                    <Alert severity="info">
+                        Creating..... ${hash}
+                    </Alert>
                 })
                 .on("receipt", async (receipt) => {
                     console.log("receipt: " + receipt);
-                    alert.show("Buy successfully!")
+                    <Alert severity="success">
+                        Buy successfully!
+                    </Alert>
                     setRedirect(true)
                 })
                 .on("error", () => {
-                    alert.show("Something with wrong.....")
+                    <Alert severity="error">
+                        <AlertTitle>Error</AlertTitle>
+                        Something with wrong.....
+                    </Alert>
                 });
             }
         });
@@ -122,15 +136,23 @@ const ProductDetail = ({ match }) => {
             gas: 5500000,
             value: product.price
         }).on("transactionHash", hash => {
-            alert.show('Creating..... ' + hash)
+            <Alert severity="info">
+                <AlertTitle>Info</AlertTitle>
+                Creating..... ${hash}
+            </Alert>
         })
         .on("receipt", async (receipt) => {
             console.log("receipt: " + receipt);
-            alert.show("Buy successfully!")
+            <Alert severity="success">
+                Buy successfully!
+            </Alert>
             setRedirect(true)
         })
         .on("error", () => {
-            alert.show("Something with wrong.....")
+            <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                Something with wrong.....
+            </Alert>
         });
     }
     

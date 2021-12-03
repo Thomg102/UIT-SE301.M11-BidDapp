@@ -13,6 +13,8 @@ html {
 
 body {
   box-sizing: border-box;
+  min-height: 100vh;
+  position: relative;
 }
 
 ul {
@@ -41,4 +43,9 @@ a {
 
 .createProduct {
   font-size: 16px;
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
 }

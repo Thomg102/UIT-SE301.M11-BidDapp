@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
+import { Alert, AlertTitle } from '@material-ui/lab'
 import ProductFormFields from "../../components/ProductFormFields/index"
 import { create } from 'ipfs-http-client';
 import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
-import { useAlert } from 'react-alert'
 import { Redirect } from "react-router-dom";
 
 let client = create('https://ipfs.infura.io:5001/api/v0');
 let web3;
 const Index = () => {
-    const alert = useAlert()
     const [fileUrl, updateFileUrl] = useState(``)
     const [account, setAccount] = useState("Connect to wallet");
     const [redirect, setRedirect] = useState(false);
@@ -33,7 +32,10 @@ const Index = () => {
                     window.localStorage.account = result[0];
                 })
         } else {
-            alert.show("Please installing Metamask")
+            <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                Please install — <strong>meta mask!</strong>
+            </Alert>
         }
 
         const added = await client.add(JSON.stringify(obj))
@@ -46,7 +48,9 @@ const Index = () => {
             gas: 5500000
         })
         .on("transactionHash", hash => {
-            alert.show('Creating.....' + hash)
+            <Alert severity="info">
+                Creating..... — <strong>${hash}</strong>
+            </Alert>
         })
         .on("receipt", async (receipt) => {
             console.log("receipt: " + receipt);
@@ -55,11 +59,17 @@ const Index = () => {
                 from: window.localStorage.account,
                 gas: 5500000
             });
-            alert.show("Created and Approve")
+            <Alert severity="success">
+                <AlertTitle>Success</AlertTitle>
+                    Created and Approve
+            </Alert>
             setRedirect(true);
         })
         .on("error", () => {
-            alert.show("Something with wrong, such as Img was existed.....")
+            <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                Something with wrong, such as Img was existed.....
+            </Alert>
         });
     }
 
