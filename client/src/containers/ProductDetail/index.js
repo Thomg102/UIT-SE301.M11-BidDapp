@@ -125,7 +125,7 @@ const ProductDetail = ({ match }) => {
     return (
         <div>
             { _product && 
-                <div className="container detail">
+                <div className="container detail mt-5">
                     <div className="row gx-5">
                         <div className="col-6">
                             <div class="card detail__img">
@@ -182,23 +182,23 @@ const ProductDetail = ({ match }) => {
                                 </div>
                             </div>
                             
-                                    <div class="card mt-5">
-                                        <div class="card-header detail__catalog-title">
-                                            Offer List
-                                        </div>
-                                        <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
-                                            <p class="card-text">Offer</p>
-                                        </div>
-                                        <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
-                                            <p class="card-text">Offer</p>
-                                        </div>
-                                        <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
-                                            <p class="card-text">Offer</p>
-                                        </div>
-                                        <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
-                                            <p class="card-text">Offer</p>
-                                        </div>
-                                    </div>
+                            <div class="card mt-5">
+                                <div class="card-header detail__catalog-title">
+                                    Offer List
+                                </div>
+                                <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
+                                    <p class="card-text">Offer</p>
+                                </div>
+                                <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
+                                    <p class="card-text">Offer</p>
+                                </div>
+                                <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
+                                    <p class="card-text">Offer</p>
+                                </div>
+                                <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
+                                    <p class="card-text">Offer</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

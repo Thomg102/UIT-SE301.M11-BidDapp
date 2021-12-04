@@ -48,7 +48,7 @@ const ProductList = () => {
     }, [])
     return (
         <>
-            <div>
+            <div className="mt-5">
                 <div className = "row gx-4 m-0 pl-3 pr-3">
                     <div className = "col-3 pr-5 pl-0">
                         <Filter></Filter>

@@ -30,19 +30,18 @@ const index = () => {
                                     <h1>BlockCommerce<br className="d-none d-md-block" /> built for software.</h1>
                                     <div className="row banner-l-11-bottom-content">
                                         <div className="col-lg-8 col-md-8 col-sm-10">
-                                            <p className="position-relative banner-main-content-l-11">Create custom landing pages with
-                                                BlockCommerce that convert more
-                                                visitors
-                                                than any website—no coding required.
+                                            <p className="position-relative banner-main-content-l-11">Provide you with a package secured by Blockchain
+                                                and Smart Contract to build, manage and revise all aspect between bulding and developing
+                                                software for Ethereum ecommerce projects.
                                                 <span className="line-left-content"></span>
                                             </p>
                                         </div>
                                         <div className="col-lg-4 col-md-4 col-sm-6 flex-y-center ">
-                                            <a className="btn l-11-hero-btn" href="#">Tải bản dùng thử miễn phí</a>
+                                            <a className="btn l-11-hero-btn" href="https://ipfs.io/ipfs/QmTZ2NHp8fLnN9hdrCrRA9EXzLYsUSCDzK4Ae8tGyxVPMC" download>Download free trial</a>
                                         </div>
                                         <div className="col-xl-3 col-lg-4">
                                             <div className="compitable-text border-top d-inline-block">
-                                                <p>Tương thích với:</p>
+                                                <p>Compatible with:</p>
                                                 <div className="compatible-icon flex-y-center img-grayscale">
                                                     <a href="#" className="font-size-13 mr-7"><img src={require("../../assets/pictures/home/l2/windows.svg").default} alt="" /></a>
                                                     {/* /* <a href="#" className="font-size-13 mr-7"><img src="../../assets/pictures/home/l2/apple.svg" alt=""/></a>
@@ -66,8 +65,8 @@ const index = () => {
                     </div>
                 </div>
                 {/* /* Brand-area -->
-/* Content Area-1 --> */}
-                <div className="content-area-l-11-1">
+                /* Content Area-1 --> */}
+                {/* <div className="content-area-l-11-1">
                     <div className="container">
                         <div className="row align-items-center justify-content-lg-start justify-content-center">
                             <div className="col-xl-6 col-md-5 col-md-10" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
@@ -86,9 +85,9 @@ const index = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* /* Content Area-2  --> */}
-                <div className="content-area-l-11-2">
+                {/* <div className="content-area-l-11-2">
                     <div className="container">
                         <div className="row align-items-center justify-content-lg-between justify-content-center">
                             <div className="col-xxl-4 col-xl-5 col-lg-6 col-md-9 order-lg-1 order-1" data-aos="fade-right" data-aos-duration="800" data-aos-once="true">
@@ -132,7 +131,7 @@ const index = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* /* Content Area --> */}
                 <div className="content-area-l-11-3 position-relative">
                     <div className="container">
@@ -144,18 +143,20 @@ const index = () => {
                             </div>
                             <div className="offset-xl-1 col-xl-5 col-lg-6 col-md-9 order-lg-1 order-1" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
                                 <div className="content section-heading-5">
-                                    <h2>Completely Free for Everyone.</h2>
-                                    <p>Event is not like most tech conferences. We want our presentations to engage the audience, spark
-                                        discussion and inspire new ideas. </p>
+                                    <h2>Rich with features.</h2>
+                                    <p>Here are some features that we are developing:</p>
                                     <ul className="list-unstyled pl-0">
                                         <li className="d-flex align-items-center">
-                                            <i className="fa fa-check"></i>Unlimited design possibility
+                                            <i className="fa fa-check"></i>Smart Contract
                                         </li>
                                         <li className="d-flex align-items-center">
-                                            <i className="fa fa-check"></i>Completely responsive
+                                            <i className="fa fa-check"></i>Proxy
                                         </li>
                                         <li className="d-flex align-items-center">
-                                            <i className="fa fa-check"></i>Easy to customize
+                                            <i className="fa fa-check"></i>Lazy Minting
+                                        </li>
+                                        <li className="d-flex align-items-center">
+                                            <i className="fa fa-check"></i>Verification
                                         </li>
                                     </ul>
                                 </div>
@@ -164,7 +165,7 @@ const index = () => {
                     </div>
                 </div>
                 {/* /* Feature Area --> */}
-                <div className="feature-l-11">
+                {/* <div className="feature-l-11">
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-xl-9 px-lg-12 col-md-12">
@@ -256,9 +257,9 @@ const index = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* /* Testimonial Section --> */}
-                <div className="testimonial-area-l-11">
+                {/* <div className="testimonial-area-l-11">
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-xl-7 col-lg-9" data-aos="fade-down" data-aos-duration="800" data-aos-once="true">
@@ -335,7 +336,7 @@ const index = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* /* Newsletter-area start --> */}
                 <div className="newsletter-l-11">
                     <div className="container">
@@ -348,9 +349,9 @@ const index = () => {
                                     <p>We designed and tested prototypes that helped identify pain points in the account creation
                                         process. Together, we shaped the new standard.</p>
                                     <div className="btn-area">
-                                        <a href="#" className="btn"><i className="fa fa-download d-inline-block"></i> Tải bản dùng thử miễn phí</a>
+                                        <a href="#" className="btn"><i className="fa fa-download d-inline-block"></i> Download free trial</a>
                                     </div>
-                                    <span>No credit card required</span>
+                                    {/* <span>No credit card required</span> */}
                                 </div>
                             </div>
                         </div>
