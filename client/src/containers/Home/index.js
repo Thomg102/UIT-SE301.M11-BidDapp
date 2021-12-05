@@ -81,9 +81,6 @@ const Home = () => {
                                         >
                                             Download for free
                                         </Button>
-                                        <div className="col-lg-4 col-md-4 col-sm-6 flex-y-center ">
-                                            <a className="btn l-11-hero-btn" href="https://ipfs.io/ipfs/QmTZ2NHp8fLnN9hdrCrRA9EXzLYsUSCDzK4Ae8tGyxVPMC" download>Download free trial</a>
-                                        </div>
                                         <div className="col-xl-3 col-lg-4">
                                             <div className="compitable-text border-top d-inline-block">
                                                 <p>Compatible with:</p>
@@ -95,10 +92,10 @@ const Home = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-5 position-relative">
-                                <ReactMediaBitcoin className={classes.mediaBitcoin} />
-                                <ReactMediaShopping className={classes.mediaShopping} />
-                            </div>
+                        </div>
+                        <div className="col-5 position-relative">
+                            <ReactMediaBitcoin className={classes.mediaBitcoin} />
+                            <ReactMediaShopping className={classes.mediaShopping} />
                         </div>
                     </div>
                     <div className="hero-shape-l11-1 d-none d-md-block">
@@ -429,7 +426,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-
+    </div>
     )
 }
 

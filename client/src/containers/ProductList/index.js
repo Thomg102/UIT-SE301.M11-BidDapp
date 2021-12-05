@@ -7,6 +7,7 @@ import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import { MARKETPLACE_ADDR, ART_ADDR } from '../../config/config.json';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -61,7 +62,7 @@ const ProductList = () => {
                     <div className="col-9 p-0">
                         <div className="row justify-content-between m-0">
                             {
-                                fetchData ? (<h1>Waiting for fetching data</h1>) :
+                                fetchData ? (<CircularProgress style={{margin: '100px auto'}} />) :
                                     products.map((product, index) => (
                                         <Product
                                             {...product}

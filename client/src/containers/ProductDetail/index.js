@@ -12,6 +12,8 @@ import { Redirect } from 'react-router-dom'
 import InfoPopup from '../../components/InfoPopup'
 import IERC20 from '../../contracts/IERC20.json'
 import OfferList from '../../components/OfferList/index'
+import AlertComp from '../../components/AlertComp';
+import { error, warning, info, success } from '../../constant/alertBg'
 
 const ProductDetail = ({ match }) => {
   const [_product, setProduct] = useState({})
@@ -54,10 +56,10 @@ const ProductDetail = ({ match }) => {
     ) {
       setDisable(true)
       if (!product.selling) {
-        ;<Alert severity="info">This product's owner haven't bought yet!</Alert>
+        <AlertComp backgroundColor={info} type="info" content="This product's owner haven't bought yet!" />
       }
       if (ownerof.toUpperCase() == window.localStorage.account.toUpperCase()) {
-        ;<Alert severity="info">You are this product's owner!</Alert>
+        <AlertComp backgroundColor={info} type="info" content="You are this product's owner!" />
       }
     }
     if (componentMounted.current) {
@@ -117,19 +119,16 @@ const ProductDetail = ({ match }) => {
             gas: 5500000,
           })
           .on('transactionHash', (hash) => {
-            console.log(hash)
-            ;<Alert severity="info">Creating..... ${hash}</Alert>
+            console.log(hash);
+            <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
           })
           .on('receipt', async (receipt) => {
-            console.log('receipt: ' + receipt)
-            ;<Alert severity="success">Buy successfully!</Alert>
+            console.log('receipt: ' + receipt);
+            <AlertComp backgroundColor={success} type="success" content="Buy successfully!" />
             setRedirect(true)
           })
           .on('error', () => {
-            ;<Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              Something with wrong.....
-            </Alert>
+            <AlertComp backgroundColor={error} type="error" content="Something with wrong....." />
           })
       },
     })
@@ -154,21 +153,15 @@ const ProductDetail = ({ match }) => {
         value: product.price,
       })
       .on('transactionHash', (hash) => {
-        ;<Alert severity="info">
-          <AlertTitle>Info</AlertTitle>
-          Creating..... ${hash}
-        </Alert>
+        <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
       })
       .on('receipt', async (receipt) => {
-        console.log('receipt: ' + receipt)
-        ;<Alert severity="success">Buy successfully!</Alert>
+        console.log('receipt: ' + receipt);
+        <AlertComp backgroundColor={success} type="success" content="Buy successfully!" />
         setRedirect(true)
       })
       .on('error', () => {
-        ;<Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          Something with wrong.....
-        </Alert>
+        <AlertComp backgroundColor={error} type="error" content="Something with wrong....." />
       })
   }
 
@@ -183,7 +176,7 @@ const ProductDetail = ({ match }) => {
     if (window.ethereum != undefined) {
       web3 = new Web3(window.ethereum)
     } else {
-      alert.show('Please installing Metamask')
+      <AlertComp backgroundColor={error} type="error" content="Please installing Metamask" />
     }
 
     const contract = await new web3.eth.Contract(
@@ -208,7 +201,7 @@ const ProductDetail = ({ match }) => {
           from: window.localStorage.account,
         })
         .on('transactionHash', (hash) => {
-          alert.show('Creating.....' + hash)
+          <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
           window.alert('Please waiting...')
           togglePopup()
         })
@@ -217,7 +210,7 @@ const ProductDetail = ({ match }) => {
           setRedirect(true)
         })
         .on('error', () => {
-          alert.show('Something with wrong, such as Img was not existed.....')
+          <AlertComp backgroundColor={error} type="error" content="Something with wrong, such as Img was not existed....." />
         })
     } else if (Number(balance) > Number(obj.amount)) {
       await IERC20Contract.methods
@@ -233,7 +226,7 @@ const ProductDetail = ({ match }) => {
           togglePopup()
         })
         .on('error', () => {
-          alert.show('Something with wrong, such as Khong du tien.....')
+          <AlertComp backgroundColor={error} type="error" content="Something with wrong, not enough money....." />
         })
       const object = await contract.methods
         .offer(match.params.id, obj.amount, obj.addressToken, obj.time)
@@ -241,7 +234,7 @@ const ProductDetail = ({ match }) => {
           from: window.localStorage.account,
         })
         .on('transactionHash', (hash) => {
-          alert.show('Creating.....' + hash)
+          <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
           window.alert('Please waiting...')
         })
         .on('receipt', async (receipt) => {
@@ -249,7 +242,7 @@ const ProductDetail = ({ match }) => {
           setRedirect(true)
         })
         .on('error', () => {
-          alert.show('Something with wrong, such as Img was not existed.....')
+          <AlertComp backgroundColor={error} type="error" content="Something went wrong, such as Img is not existed....." />
         })
     } else {
       window.alert('Khong du tien')

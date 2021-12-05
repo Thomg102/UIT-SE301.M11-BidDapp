@@ -7,14 +7,13 @@ import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import { MARKETPLACE_ADDR, ART_ADDR } from '../../config/config.json';
-import { useAlert } from 'react-alert';
 import { Redirect } from "react-router-dom";
 import InfoPopup from '../../components/InfoPopup';
 import IERC20 from '../../contracts/ERC721.json';
-
+import AlertComp from '../AlertComp';
+import { error, warning, info, success } from '../../constant/alertBg'
 
 const OfferList = ({ match }) => {
-    const alert = useAlert()
     const [offerList, setOfferList] = useState([]);
     const [redirect, setRedirect] = useState(false);
     const [count, setCount] = useState([]);
@@ -27,7 +26,7 @@ const OfferList = ({ match }) => {
         if (window.ethereum != undefined) {
             web3 = new Web3(window.ethereum);
         } else {
-            alert.show("Please installing Metamask")
+            <AlertComp backgroundColor={warning} type="warning" content="Please install Metamask" />
         }
 
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
@@ -78,21 +77,21 @@ const OfferList = ({ match }) => {
         if (window.ethereum != undefined) {
             web3 = new Web3(window.ethereum);
         } else {
-            alert.show("Please installing Metamask")
+            <AlertComp backgroundColor={warning} type="warning" content="Please installing Metamask" />
         }
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
         // console.log(index)
         await contract.methods.approveOffer(match.params.id, index).send({
             from: window.localStorage.account
         }).on("transactionHash", hash => {
-            alert.show('Creating.....' + hash)
+            <AlertComp backgroundColor={info} type="warning" content={`'Creating..... ' ${hash}`} />
             window.alert("Please waiting...")
         })
             .on("receipt", async (receipt) => {
                 console.log("receipt: " + receipt);
             })
             .on("error", () => {
-                alert.show("Something with wrong, such as Img was not existed.....")
+                <AlertComp backgroundColor={error} type="error" content="Something with wrong, such as Img was not existed....." />
             });
     }
 

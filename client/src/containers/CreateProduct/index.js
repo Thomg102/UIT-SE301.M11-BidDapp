@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Alert, AlertTitle } from '@material-ui/lab'
 import ProductFormFields from "../../components/ProductFormFields/index"
 import { create } from 'ipfs-http-client';
 import Web3 from 'web3';
@@ -7,6 +6,8 @@ import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
 import { Redirect } from "react-router-dom";
+import AlertComp from '../../components/AlertComp';
+import { error, warning, info, success } from '../../constant/alertBg'
 
 let client = create('https://ipfs.infura.io:5001/api/v0');
 let web3;
@@ -32,10 +33,7 @@ const Index = () => {
                     window.localStorage.account = result[0];
                 })
         } else {
-            <Alert severity="error">
-                <AlertTitle>Error</AlertTitle>
-                Please install — <strong>meta mask!</strong>
-            </Alert>
+            <AlertComp backgroundColor={error} type="error" content="Please install meta mask!" />
         }
 
         const added = await client.add(JSON.stringify(obj))
@@ -48,9 +46,7 @@ const Index = () => {
             gas: 5500000
         })
         .on("transactionHash", hash => {
-            <Alert severity="info">
-                Creating..... — <strong>${hash}</strong>
-            </Alert>
+            <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
         })
         .on("receipt", async (receipt) => {
             console.log("receipt: " + receipt);
@@ -59,17 +55,11 @@ const Index = () => {
                 from: window.localStorage.account,
                 gas: 5500000
             });
-            <Alert severity="success">
-                <AlertTitle>Success</AlertTitle>
-                    Created and Approve
-            </Alert>
+            <AlertComp backgroundColor={success} type="success" content="Created and Approve" />
             setRedirect(true);
         })
         .on("error", () => {
-            <Alert severity="error">
-                <AlertTitle>Error</AlertTitle>
-                Something with wrong, such as Img was existed.....
-            </Alert>
+            <AlertComp backgroundColor={error} type="error" content="Something went wrong, such as Img is not existed....." />
         });
     }
 
