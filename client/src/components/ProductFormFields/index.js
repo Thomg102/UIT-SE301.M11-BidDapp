@@ -68,7 +68,7 @@ const Index = () => {
           <label className="productPrice">Price:</label>
         </div>
         <div className="col-sm-5 d-flex">
-          <input type="number" className="form-control" id="productPrice" name="productPrice" required />
+          <input type="number" className="form-control" id="productPrice" name="productPrice" min="0" step="any" required />
         </div>
       </div>
 
