@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useLayoutEffect, useState } from 'react';
 import Product from '../../components/Product/index';
 // import { productList } from "../../virtualData/productList";
@@ -8,6 +9,7 @@ import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import { MARKETPLACE_ADDR, ART_ADDR } from '../../config/config.json';
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useLocation } from 'react-router-dom';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -19,6 +21,9 @@ const ProductList = () => {
         const data = await response.json();
         return data
     }
+
+    const search = useLocation().search;  
+    const query = new URLSearchParams(search).get('query');
 
     useEffect(async () => {
         const web3 = new Web3(window.ethereum);
@@ -56,7 +61,11 @@ const ProductList = () => {
                         <div className="row justify-content-between m-0">
                             {
                                 fetchData ? (<CircularProgress style={{margin: '100px auto'}} />) :
-                                    products.map((product, index) => (
+                                    products.filter((product) => {
+                                        if (query == null || query === ""
+                                            || product.name.toLowerCase().includes(query.toLowerCase()))
+                                            return product;
+                                    }).map((product, index) => (
                                         <Product
                                             {...product}
                                             key={index}
