@@ -63,8 +63,8 @@ const Header = () => {
         <a href="/" className="logo">BlockCommerce</a>
 
         <div className = "search-bar align-self-center">
-            <form action="/action_page.php">
-                <input type="text" placeholder="Search.."/>
+            <form action="/products" method="GET">
+                <input type="text" name="query" placeholder="Search.."/>
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
