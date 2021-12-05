@@ -14,11 +14,11 @@ const Product = (props) => {
   } = props;
 
   const handleClick = (id) => {
-    history.push(`product/${id}`);
+    history.push(`../product/${id}`);
   }
 
   return (
-    <div className="card card-product" onClick={e => { handleClick(id) }}>
+    <div className="card card-product mt-5" onClick={e => { handleClick(id) }}>
       <div className="p-0">
         <img src={image} className="card-img-top" alt={name} height="300"/>
       </div>

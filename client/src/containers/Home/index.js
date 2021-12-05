@@ -37,7 +37,7 @@ const index = () => {
                                             </p>
                                         </div>
                                         <div className="col-lg-4 col-md-4 col-sm-6 flex-y-center ">
-                                            <a className="btn l-11-hero-btn" href="#">Download free trial</a>
+                                            <a className="btn l-11-hero-btn" href="https://ipfs.io/ipfs/QmTZ2NHp8fLnN9hdrCrRA9EXzLYsUSCDzK4Ae8tGyxVPMC" download>Download free trial</a>
                                         </div>
                                         <div className="col-xl-3 col-lg-4">
                                             <div className="compitable-text border-top d-inline-block">

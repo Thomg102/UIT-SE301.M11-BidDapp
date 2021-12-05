@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import Header from "../../components/Header/index";
 import { productList } from "../../virtualData/productList";
 import PaypalSend from '../../assets/js/connect-paypal';
@@ -6,48 +6,57 @@ import Popup from "../../components/Popup";
 import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
-import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
+import { MARKETPLACE_ADDR, ART_ADDR } from '../../config/config.json';
 import { useAlert } from 'react-alert';
 import { Redirect } from "react-router-dom";
 import InfoPopup from '../../components/InfoPopup';
+import IERC20 from '../../contracts/IERC20.json';
+import OfferList from '../../components/OfferList/index';
 
 const ProductDetail = ({ match }) => {
     const alert = useAlert()
     const [_product, setProduct] = useState({});
     const [isOpen, setIsOpen] = useState(false);
-    const [isETH, setIsETH] =useState(false);
+    const [isETH, setIsETH] = useState(false);
     const [isUSD, setIsUSD] = useState(false);
     const [isOffer, setIsOffer] = useState(true);
     const componentMounted = useRef(true);
     const [redirect, setRedirect] = useState(false);
-    const [disable, setDisable] =useState(false);
-
-    const getapi = async(url) =>{
+    const [disable, setDisable] = useState(false);
+    const [minTime, setMinTime] = useState("2021-04-11T00:00");
+    const getapi = async (url) => {
         const response = await fetch(url);
         const data = response.json();
         return data
     }
 
-    useEffect(async() => {
+    useEffect(() => {
+        const dtToday = new Date()
+        const maxDate = dtToday.toISOString().substr(0, 10);
+        setMinTime(maxDate + "T" + dtToday.getHours() + ":"
+            + dtToday.getMinutes())
+    })
+
+    useEffect(async () => {
         const web3 = new Web3(window.ethereum);
         const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR);
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
         const product = await contract.methods.tokenIdToProduct(match.params.id).call()
         const uri = await artContract.methods.tokenURI(match.params.id).call();
         const productMetadata = await getapi(uri);
-        const ownerof= await artContract.methods.ownerOf(product.tokenId).call();
-        if (!product.selling || ownerof.toUpperCase() == window.localStorage.account.toUpperCase()){
+        const ownerof = await artContract.methods.ownerOf(product.tokenId).call();
+        if (!product.selling || ownerof.toUpperCase() == window.localStorage.account.toUpperCase()) {
             setDisable(true)
             if (!product.selling) alert.show("This product's owner haven't bought yet!")
             if (ownerof.toUpperCase() == window.localStorage.account.toUpperCase()) alert.show("You are this product's owner!")
-        } 
-        if (componentMounted.current){
-            setProduct({ 
+        }
+        if (componentMounted.current) {
+            setProduct({
                 id: product.tokenId,
                 image: productMetadata.imgUrl,
                 name: productMetadata.name,
                 shortDesc: productMetadata.shortDes,
-                price: product.price/Math.pow(10,18),
+                price: product.price / Math.pow(10, 18),
                 createdAt: product.timestamp,
                 endDate: 'April 18, 2022 at 10:21am +07',
                 creator: product.creator,
@@ -55,22 +64,17 @@ const ProductDetail = ({ match }) => {
                 description: productMetadata.des
             })
         }
-        console.log("hello")
-
-        return () => {
-            componentMounted.current =false;
-        };
     }, []);
-    
+
     const togglePopup = () => {
         setIsOpen(!isOpen);
     }
 
-    const toggleETH = (bool)=>{
+    const toggleETH = (bool) => {
         setIsETH(bool);
     }
 
-    const toggleUSD = (bool)=>{
+    const toggleUSD = (bool) => {
         setIsUSD(bool);
     }
 
@@ -79,14 +83,14 @@ const ProductDetail = ({ match }) => {
     }
 
     const onBuy = () => {
-        
+
         PaypalSend({
-            itemName:_product.name,
-            destinationEmail:"testing_seller@example.com", // PASSWORD: testing_seller
-            sourceEmail:"testing_buyer@example.com",       // PASSWORD: testing_buyer
-            currency:"USD",
-            amount:"0.01",
-            onComplete: async()=>{
+            itemName: _product.name,
+            destinationEmail: "testing_seller@example.com", // PASSWORD: testing_seller
+            sourceEmail: "testing_buyer@example.com",       // PASSWORD: testing_buyer
+            currency: "USD",
+            amount: "0.01",
+            onComplete: async () => {
                 const web3 = new Web3(window.ethereum);
                 const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR);
                 const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
@@ -99,19 +103,19 @@ const ProductDetail = ({ match }) => {
                     console.log(hash)
                     alert.show('Creating..... ' + hash)
                 })
-                .on("receipt", async (receipt) => {
-                    console.log("receipt: " + receipt);
-                    alert.show("Buy successfully!")
-                    setRedirect(true)
-                })
-                .on("error", () => {
-                    alert.show("Something with wrong.....")
-                });
+                    .on("receipt", async (receipt) => {
+                        console.log("receipt: " + receipt);
+                        alert.show("Buy successfully!")
+                        setRedirect(true)
+                    })
+                    .on("error", () => {
+                        alert.show("Something with wrong.....")
+                    });
             }
         });
     }
 
-    const onBuyETH = async()=>{
+    const onBuyETH = async () => {
         const web3 = new Web3(window.ethereum);
         const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR);
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
@@ -124,20 +128,89 @@ const ProductDetail = ({ match }) => {
         }).on("transactionHash", hash => {
             alert.show('Creating..... ' + hash)
         })
-        .on("receipt", async (receipt) => {
-            console.log("receipt: " + receipt);
-            alert.show("Buy successfully!")
-            setRedirect(true)
-        })
-        .on("error", () => {
-            alert.show("Something with wrong.....")
-        });
+            .on("receipt", async (receipt) => {
+                console.log("receipt: " + receipt);
+                alert.show("Buy successfully!")
+                setRedirect(true)
+            })
+            .on("error", () => {
+                alert.show("Something with wrong.....")
+            });
     }
-    
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const obj = {
+            addressToken: e.target.elements.addressToken.value,
+            amount: (e.target.elements.amount.value * Math.pow(10, 18)).toString(),
+            time: (Math.round(Date.parse(e.target.elements.time.value) / 1000)),
+        }
+        let web3;
+        if (window.ethereum != undefined) {
+            web3 = new Web3(window.ethereum);
+        } else {
+            alert.show("Please installing Metamask")
+        }
+
+        const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
+        const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR);
+        const IERC20Contract = await new web3.eth.Contract(IERC20.abi, obj.addressToken);
+        const allowance = await IERC20Contract.methods.allowance(window.localStorage.account, MARKETPLACE_ADDR).call();
+        const balance = await IERC20Contract.methods.balanceOf(window.localStorage.account).call();
+        if (Number(allowance) >= Number(obj.amount)) {
+            const object = await contract.methods.offer(match.params.id, obj.amount, obj.addressToken, obj.time).send({
+                from: window.localStorage.account
+            })
+                .on("transactionHash", hash => {
+                    alert.show('Creating.....' + hash)
+                    window.alert("Please waiting...")
+                    togglePopup();
+                })
+                .on("receipt", async (receipt) => {
+                    console.log("receipt: " + receipt);
+                    setRedirect(true)
+                })
+                .on("error", () => {
+                    alert.show("Something with wrong, such as Img was not existed.....")
+                });
+        } else if (Number(balance) > Number(obj.amount)) {
+            await IERC20Contract.methods.approve(MARKETPLACE_ADDR, obj.amount).send({
+                from: window.localStorage.account
+            })
+                .on("transactionHash", hash => {
+                    window.alert("Vui long cho approve");
+                })
+                .on("receipt", async (receipt) => {
+                    console.log("receipt: " + receipt);
+                    togglePopup();
+                })
+                .on("error", () => {
+                    alert.show("Something with wrong, such as Khong du tien.....")
+                });
+            const object = await contract.methods.offer(match.params.id, obj.amount, obj.addressToken, obj.time).send({
+                from: window.localStorage.account
+            })
+                .on("transactionHash", hash => {
+                    alert.show('Creating.....' + hash)
+                    window.alert("Please waiting...")
+                })
+                .on("receipt", async (receipt) => {
+                    console.log("receipt: " + receipt);
+                    setRedirect(true)
+                })
+                .on("error", () => {
+                    alert.show("Something with wrong, such as Img was not existed.....")
+                });
+        } else {
+            window.alert("Khong du tien")
+        }
+
+    }
+
     return (
         <div>
-            { _product && 
-                <div className="container detail">
+            {_product &&
+                <div className="container detail mt-5">
                     <div className="row gx-5">
                         <div className="col-6">
                             <div class="card detail__img">
@@ -168,7 +241,7 @@ const ProductDetail = ({ match }) => {
                             <h1 href="#" className="detail__name link-primary">{_product.name}</h1>
                             <p className="detail__shortDesc mt-4">{_product.shortDesc}</p>
                             <p className="detail__owner mt-5 mb-5">
-                                <span className="me-2">Owned by</span> 
+                                <span className="me-2">Owned by</span>
                                 <a href="#" className="link-primary">@Thomnd</a>
                             </p>
                             <div class="card">
@@ -181,85 +254,66 @@ const ProductDetail = ({ match }) => {
                                         <img className="detail__eth-icon me-3" src={_product.isETHOnPolygon ? "https://storage.opensea.io/files/265128aa51521c90f7905e5a43dcb456.svg" : "https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"} />
                                         <span class="card-text detail__price">{_product.price}</span>
                                     </div>
-                                    
-                                    <button class="btn btn-primary detail__cta-buy text-white mt-4" onClick={()=>{togglePopup(); toggleUSD(true)}} width="175" disabled={disable}>Buy (USD)</button>
-                                    <button class="btn btn-primary detail__cta-buy text-white mt-4 ml-4" onClick={()=>{togglePopup(); toggleETH(true)}} width="175" disabled={disable}>Buy (ETH)</button>
-                                    <button class="btn btn-primary detail__cta-buy text-white mt-4 ml-4" onClick={() => {togglePopup(); toggleETH(false); toggleUSD(false) ; toggleOffer(true)}} disabled={disable}>Offer</button>
-                                    
-                                    { isOpen && (isETH?<Popup handleClose={togglePopup} onBuy={onBuyETH} isETH={isETH} />
-                                                :(isUSD?<Popup handleClose={togglePopup} onBuy={onBuy} isETH={isETH} />:<InfoPopup
-                                                    content={
-                                                        <>
-                                                            <div>
-                                                                <p>Address: </p>
-                                                                <input type = "text"></input>
-                                                            </div>
-                                                            <div>
-                                                                <p>Quantity: </p>
-                                                                <input type = "number" min = "1" value = "1" max = "999"></input>
-                                                            </div>
-                                                            <div>
-                                                                <p>Date: </p>
-                                                                <input type = "date"></input>
-                                                            </div>
-                                                            <br/>
-                                                            <div class="d-flex justify-content-end">
-                                                                <button class = "okBtn">Sumbit</button>
-                                                                <button onClick={togglePopup}>Cancel</button>
-                                                            </div>
-                                                        
-                                                    </>}
-                                                    handleClose={togglePopup}
-                                                />))
-                                             
+
+                                    <button class="btn btn-primary detail__cta-buy text-white mt-4" onClick={() => { togglePopup(); toggleUSD(true) }} width="175" disabled={disable}>Buy (USD)</button>
+                                    <button class="btn btn-primary detail__cta-buy text-white mt-4 ml-4" onClick={() => { togglePopup(); toggleETH(true) }} width="175" disabled={disable}>Buy (ETH)</button>
+                                    <button class="btn btn-primary detail__cta-buy text-white mt-4 ml-4" onClick={() => { togglePopup(); toggleETH(false); toggleUSD(false); toggleOffer(true) }} disabled={disable}>Offer</button>
+
+                                    {isOpen && (isETH ? <Popup handleClose={togglePopup} onBuy={onBuyETH} isETH={isETH} />
+                                        : (isUSD ? <Popup handleClose={togglePopup} onBuy={onBuy} isETH={isETH} /> : <InfoPopup
+                                            content={
+                                                <form enctype="application/x-www-form-urlencoded" class="needs-validation" onSubmit={(e) => handleSubmit(e)}
+                                                    method="GET">
+                                                    <div>
+                                                        <p>Token Address: </p>
+
+                                                        <select name="addressToken" style={{ width: "100%" }}>
+                                                            <option value="0x01BE23585060835E02B77ef475b0Cc51aA1e0709" selected>LINK</option>
+                                                            <option value="B">BAT</option>
+                                                            <option value="C">DAI</option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <p>Amount token: </p>
+                                                        <input type="number" name="amount" min="0" placeholder="EX: 1 LINK" max="999" step="any" required></input>
+                                                    </div>
+                                                    <div>
+                                                        <p>Timeout: </p>
+                                                        <input type="datetime-local" name="time" min={minTime} required></input>
+                                                    </div>
+                                                    <br />
+                                                    <div class="d-flex justify-content-end">
+                                                        <button class="okBtn">Sumbit</button>
+                                                        <button onClick={togglePopup}>Cancel</button>
+                                                    </div>
+
+                                                </form>}
+                                            handleClose={togglePopup}
+                                        />))
                                     }
 
-                                    {
-                                        redirect && <Redirect to={"/product/" + match.params.id} />
-                                    }
                                 </div>
                             </div>
-                            
-                                    <div class="card mt-5">
-                                        <div class="card-header detail__catalog-title">
-                                            Offer List
-                                        </div>
-                                        <div class ="card-header border-top detail__catalog-content">
-                                            <div class = "container-sm">
-                                                        <div class = "row offerLabel">
-                                                            <div class = "col-4">User</div>
-                                                            <div class = "col-4">Quantity</div>
-                                                        </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="card-body border-top detail__catalog-content">
-                                            <div class="card-text">
-                                                <div class = "container-sm">
-                                                    <div class = "row">
-                                                        <div class = "col-4 addressOfferList">
-                                                            <p>0x029...310</p>
-                                                        </div>
-                                                        <div class = "col-4 quantityOfferList">
-                                                            <p>1</p>
-                                                        </div>
-                                                        <div class = "col-4 approveBtn">
-                                                            <button class ="btn btn-primary detail__cta-buy text-white mt-4">Approve</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
-                                            <p class="card-text">Offer</p>
-                                        </div>
-                                        <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
-                                            <p class="card-text">Offer</p>
-                                        </div>
-                                        <div class="card-body border-top pt-4 pb-5 detail__catalog-content">
-                                            <p class="card-text">Offer</p>
+
+                            <div class="card mt-5">
+                                <div class="card-header detail__catalog-title">
+                                    Offer List
+                                </div>
+                                <div class="card-header border-top detail__catalog-content">
+                                    <div class="container-sm">
+                                        <div class="row offerLabel">
+                                            <div class="col-3">User</div>
+                                            <div class="col-3">Amount</div>
+                                            <div class="col-3">Timeout</div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <OfferList match={match} />
+                                {
+                                    redirect && <Redirect to={"/product/" + match.params.id} />
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

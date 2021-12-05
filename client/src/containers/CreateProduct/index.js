@@ -65,7 +65,7 @@ const Index = () => {
 
     return (
         <>
-            <div class="d-flex h-100 createProduct">
+            <div class="d-flex h-100 createProduct mt-5">
                 <div class="col-2 pl-0 h-100 w-25 fixed-top">
 
                 </div>
@@ -84,7 +84,7 @@ const Index = () => {
                             </form>
                         </div>
                         {
-                            redirect && <Redirect to="/products" />
+                            redirect && <Redirect to="../products" />
                         }
                     </div>
                 </div>

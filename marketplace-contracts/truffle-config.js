@@ -6,7 +6,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 const mnemonic = process.env.MNEMONIC;
 
 module.exports = {
-    contracts_build_directory: path.join(__dirname, "client/src/contracts"),
+    contracts_build_directory: path.join(__dirname, "../client/src/contracts"),
     networks: {
         rinkeby: {
             provider: () => new HDWalletProvider(mnemonic, process.env.WSS_RINKEBY),
