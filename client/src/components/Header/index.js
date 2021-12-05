@@ -1,12 +1,28 @@
 import React, {useState, useEffect} from "react";
 import Web3 from 'web3';
 import axios from 'axios';
-
+import { AppBar, Toolbar, TextField, Button, Icon, makeStyles } from '@material-ui/core';
 import { API_URL } from '../../constant/apiRoutes';
-
 let web3;
+
+const useStyles = makeStyles(() => ({
+  searchBtn: {
+    '&:hover': {
+      background: 'none'
+    },
+  },
+
+  searchField: {
+    '& *': {
+      fontSize: '15px'
+    }
+  }
+}));
+
 const Header = () => {
-    const [account, setAccount] = useState("Connect to wallet");
+    const classes = useStyles()
+
+    const [account, setAccount] = useState("connect wallet");
     const [metamask, setMetamask] = useState(true);
     const [currentUser, setCurrentUser] = useState({});
 
@@ -19,7 +35,7 @@ const Header = () => {
             setAccount(s1+'...'+s2);
             setCurrentUser(accounts[0]);
             window.localStorage.account=accounts[0];
-            if (window.localStorage.account == 'undefined') setAccount("Connect to wallet");
+            if (window.localStorage.account == 'undefined') setAccount("connect wallet");
 
             await axios.post(`${API_URL}/api/users`, {
               key: accounts[0]
@@ -27,7 +43,7 @@ const Header = () => {
           });
 
         }else{
-          setAccount("Connect to wallet")
+          setAccount("connect wallet")
         }
         if (window.localStorage.account != 'undefined' && typeof window.localStorage.account != 'undefined'){
           let s1 = window.localStorage.account.slice(0, 5);
@@ -35,7 +51,7 @@ const Header = () => {
           setCurrentUser(window.localStorage.account);
           setAccount(s1+'...'+s2);
         }
-        else setAccount("Connect to wallet")
+        else setAccount("connect wallet")
     }, []);
 
     const loadWeb3 = async ()=>{
@@ -59,22 +75,28 @@ const Header = () => {
     }
 
     return (
+    <AppBar color="inherit" position="static" className="mb-5">
+    <Toolbar>
     <div class="header d-flex justify-content-between">
-        <a href="/" className="logo">BlockCommerce</a>
+        <a href="/" className="logo">
+        <img src="https://i.ibb.co/93Zwkd6/Block-Commerce-Logo.png" alt="BlockCommerce Logo" width = "50" height="50"/> BlockCommerce
+        </a>
 
+        <div class="header-right align-self-center d-flex">
         <div className = "search-bar align-self-center">
-            <form action="/products" method="GET">
-                <input type="text" name="query" placeholder="Search.."/>
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
+          <form noValidate>
+            <TextField className={classes.searchField} id="standard-search" type="search" />
+            <Button className={classes.searchBtn}>
+              <Icon fontSize="large">search</Icon>
+              </Button>
+          </form>
         </div>
 
-        <div class="header-right align-self-center">
             <a href={require("../../assets/BlockCommerce.pdf").default} target="_blank" rel="noreferrer">Documentation</a>
             <a href="/products">Products</a>
             {/* <a href="/">Stats</a> */}
             <a href="/product/create">Create</a>
-            <a href={'/user/' + currentUser} className="bg-info connectWallet" onClick={loadWeb3}>{account}</a>
+            <a href={'/user/' + currentUser} onClick={loadWeb3}>{account}</a>
         </div>
         {metamask||(
           <div>
@@ -82,6 +104,8 @@ const Header = () => {
           </div>
         )}
     </div>
+    </Toolbar>
+    </AppBar>
     );
   };
 

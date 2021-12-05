@@ -233,14 +233,7 @@ contract MarketPlace is Ownable, IMarketPlace {
         // IERC20(_token20).approve(address(this), _amount);
 
         tokenIdToOffer[_tokenId].push(
-            Offer(
-                _tokenId,
-                _amount,
-                _token20,
-                msg.sender,
-                false,
-                block.timestamp + _timeout
-            )
+            Offer(_tokenId, _amount, _token20, msg.sender, false, _timeout)
         );
         emit NewOffer(
             _tokenId,
@@ -282,6 +275,10 @@ contract MarketPlace is Ownable, IMarketPlace {
     {
         require(_index <= tokenIdToOffer[_tokenId].length);
         return tokenIdToOffer[_tokenId][_index];
+    }
+
+    function getOffer(uint256 _tokenId) public view returns (Offer[] memory) {
+        return tokenIdToOffer[_tokenId];
     }
 
     /**

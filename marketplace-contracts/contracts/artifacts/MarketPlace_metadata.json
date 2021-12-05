@@ -278,6 +278,57 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "getOffer",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "tokenId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "token20",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "bargainer",
+								"type": "address"
+							},
+							{
+								"internalType": "bool",
+								"name": "accepted",
+								"type": "bool"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timeout",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct IMarketPlace.Offer[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "_owner",
 						"type": "address"
@@ -919,11 +970,11 @@
 			]
 		},
 		"contracts/MarketPlace.sol": {
-			"keccak256": "0xda19411536b73e6a070aa590d0783156276afc6baaa5c65555b89e39ac564560",
+			"keccak256": "0x4efe0a7cf80c8895d5f220675f56022b86793b48ccf655a6b0d30248fab32b0a",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://d3439f2e59fcd0583868efee40ad4f7deca8856f877ce4f099c314d7aa13bc67",
-				"dweb:/ipfs/QmWHWtqhuWsw3vHCHde8YpprqUS6S2cqT432wZx2aA18oq"
+				"bzz-raw://8ff2e945629738b90cb6d36b0ec448d7ac4540450a79b8d8cd360f2ff048f97c",
+				"dweb:/ipfs/QmQq69aoAfnHr4qxdLKrx8YR36rfxNUKvGWTARNVHgHgyv"
 			]
 		},
 		"contracts/interfaces/IMarketPlace.sol": {

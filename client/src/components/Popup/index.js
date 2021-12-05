@@ -1,10 +1,12 @@
 import React from "react";
-import { useAlert } from 'react-alert'
+import { Alert } from '@material-ui/lab'
 
 import PaypalSend from '../../assets/js/connect-paypal';
 
+import AlertComp from '../AlertComp';
+import { error, warning, info, success } from '../../constant/alertBg'
+
 const Popup = props => {
-    const alert = useAlert();
   return (
     <div className="popup-box">
       <div className="box">
@@ -17,7 +19,7 @@ const Popup = props => {
               <div className="d-flex justify-content-around mt-5">
                 <button className="btn-secondary popup__btn" onClick={props.handleClose} >Cancel</button>
                 <button className="btn-success popup__btn" onClick={() => {
-                    alert.show(<div style={{ color: 'white' }}>Pay by ETH</div>);
+                    <AlertComp backgroundColor={info} type="info" content="Pay by ETH" />
                     props.handleClose();
                     props.onBuy();}} >Buy</button>
               </div>
@@ -29,7 +31,7 @@ const Popup = props => {
         <div className="d-flex justify-content-around mt-5">
             <button className="btn-secondary popup__btn" onClick={props.handleClose} >Cancel</button>
             <button className="btn-success popup__btn" onClick={() => {
-                alert.show(<div style={{ color: 'white' }}>Pay by USD</div>);
+                <AlertComp backgroundColor={info} type="info" content="Pay by USD" />
                 props.handleClose();
                 props.onBuy();}} >Buy</button>
         </div>

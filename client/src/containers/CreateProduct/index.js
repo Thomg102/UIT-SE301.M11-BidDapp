@@ -5,13 +5,13 @@ import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import {MARKETPLACE_ADDR, ART_ADDR} from '../../config/config.json';
-import { useAlert } from 'react-alert'
 import { Redirect } from "react-router-dom";
+import AlertComp from '../../components/AlertComp';
+import { error, warning, info, success } from '../../constant/alertBg'
 
 let client = create('https://ipfs.infura.io:5001/api/v0');
 let web3;
 const Index = () => {
-    const alert = useAlert()
     const [fileUrl, updateFileUrl] = useState(``)
     const [account, setAccount] = useState("Connect to wallet");
     const [redirect, setRedirect] = useState(false);
@@ -33,7 +33,7 @@ const Index = () => {
                     window.localStorage.account = result[0];
                 })
         } else {
-            alert.show("Please installing Metamask")
+            <AlertComp backgroundColor={error} type="error" content="Please install meta mask!" />
         }
 
         const added = await client.add(JSON.stringify(obj))
@@ -46,7 +46,7 @@ const Index = () => {
             gas: 5500000
         })
         .on("transactionHash", hash => {
-            alert.show('Creating.....' + hash)
+            <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
         })
         .on("receipt", async (receipt) => {
             console.log("receipt: " + receipt);
@@ -55,17 +55,17 @@ const Index = () => {
                 from: window.localStorage.account,
                 gas: 5500000
             });
-            alert.show("Created and Approve")
+            <AlertComp backgroundColor={success} type="success" content="Created and Approve" />
             setRedirect(true);
         })
         .on("error", () => {
-            alert.show("Something with wrong, such as Img was existed.....")
+            <AlertComp backgroundColor={error} type="error" content="Something went wrong, such as Img is not existed....." />
         });
     }
 
     return (
         <>
-            <div class="d-flex h-100 createProduct">
+            <div class="d-flex h-100 createProduct mt-5">
                 <div class="col-2 pl-0 h-100 w-25 fixed-top">
 
                 </div>
@@ -84,7 +84,7 @@ const Index = () => {
                             </form>
                         </div>
                         {
-                            redirect && <Redirect to="/products" />
+                            redirect && <Redirect to="../products" />
                         }
                     </div>
                 </div>

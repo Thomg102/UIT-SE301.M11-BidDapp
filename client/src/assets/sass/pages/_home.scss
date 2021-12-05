@@ -1989,27 +1989,6 @@ body[data-theme='dark'], .dark-bg, .dark-mode-texts {
   
   .hero-area-l11 {
     padding-top: 100px;
-    padding-bottom: 60px;
-  }
-  
-  @media (min-width: 480px) {
-    .hero-area-l11 {
-      padding-top: 115px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .hero-area-l11 {
-      padding-top: 130px;
-      padding-bottom: 76px;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .hero-area-l11 {
-      padding-top: 180px;
-      padding-bottom: 50px;
-    }
   }
   
   .hero-area-l11 .content {
@@ -2064,12 +2043,6 @@ body[data-theme='dark'], .dark-bg, .dark-mode-texts {
     font-style: normal;
     letter-spacing: -0.4px;
     line-height: 36px;
-  }
-  
-  @media (min-width: 1200px) {
-    .hero-area-l11 .banner-main-content-l-11 {
-      padding-right: 65px;
-    }
   }
   
   @media (min-width: 1600px) {
@@ -2158,25 +2131,13 @@ body[data-theme='dark'], .dark-bg, .dark-mode-texts {
     text-align: center;
     letter-spacing: -0.9px;
     color: #FFFFFF;
+    border-radius: 130px;
   }
   
   .hero-shape-l11-1 {
     position: absolute;
-    left: 0;
-    top: 30%;
-  }
-  
-  @media (min-width: 768px) {
-    .hero-shape-l11-1 {
-      left: -5%;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .hero-shape-l11-1 {
-      left: 0;
-      top: 30%;
-    }
+    left: -98px;
+    top: -9%;
   }
   
   .hero-shape-l11-2 {
@@ -2204,7 +2165,7 @@ body[data-theme='dark'], .dark-bg, .dark-mode-texts {
     top: 0;
     left: -30px;
     width: 7px;
-    height: 55px;
+    height: 100px;
     background: #E8F1FC;
     border-radius: 4.5px;
   }
@@ -3154,4 +3115,15 @@ body[data-theme='dark'], .dark-bg, .dark-mode-texts {
   }
   
   /*# sourceMappingURL=maps/main.css.map */
+  .member_name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+    margin-left: 0.5rem;
+    margin-right: 2rem;
+  }
   
+  .mt-150 {
+    margin-top: 15rem;
+  }
