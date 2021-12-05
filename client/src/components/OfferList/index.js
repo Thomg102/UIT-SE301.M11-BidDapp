@@ -21,6 +21,7 @@ const OfferList = ({ match }) => {
     const [symbol, setSymbol] = useState([]);
     const [accepted, setAccepted] = useState(false);
     const [ind, setInd] = useState();
+    const [check, setCheck] = useState(false);
     useEffect(async () => {
         let web3;
         if (window.ethereum != undefined) {
@@ -30,9 +31,13 @@ const OfferList = ({ match }) => {
         }
 
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
-        // const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR);
+        const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR);
         // const allowance = await IERC20Contract.methods.allowance(window.localStorage.account, MARKETPLACE_ADDR).call();
         // const balance = await IERC20Contract.methods.balanceOf(window.localStorage.account).call();
+        const ownerof = await artContract.methods.ownerOf(match.params.id).call();
+        if (ownerof.toUpperCase() != window.localStorage.account.toUpperCase()) {
+            setCheck(true);
+        }
         const result = await contract.methods.getOffer(match.params.id).call()
             .then((result) => {
                 return result
@@ -111,8 +116,10 @@ const OfferList = ({ match }) => {
                                     </div>
                                     <div class="col-1 approveBtn">
                                         {
-                                            count[index] == 0 || accepted ? (ind == index ? <button class="btn btn-success text-white mt-3 mb-2" disabled>Approved</button> : <button class="btn btn-primary text-white mt-3 mb-2" disabled>Rejected</button>) :
-                                                <button class="btn btn-primary text-white mt-3 mb-2" onClick={() => handleApprove(index)}>Approve</button>
+                                            check || (
+                                                count[index] == 0 || accepted ? (ind == index ? <button class="btn btn-success text-white mt-3 mb-2" disabled>Approved</button> : <button class="btn btn-primary text-white mt-3 mb-2" disabled>Rejected</button>) :
+                                                    <button class="btn btn-primary text-white mt-3 mb-2" onClick={() => handleApprove(index)}>Approve</button>
+                                            )
                                         }
                                     </div>
                                 </div>
