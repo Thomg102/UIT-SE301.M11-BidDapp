@@ -84,7 +84,7 @@ const Index = () => {
                             </form>
                         </div>
                         {
-                            redirect && <Redirect to="/products" />
+                            redirect && <Redirect to="../products" />
                         }
                     </div>
                 </div>

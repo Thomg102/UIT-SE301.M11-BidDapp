@@ -1,4 +1,5 @@
-.popup-box {
+/* Popup style */
+.info-popup-box {
     position: fixed;
     background: #00000050;
     width: 100%;
@@ -7,10 +8,10 @@
     left: 0;
     z-index: 10000000;
   }
-   
-  .box {
+  
+  .info-box {
     position: relative;
-    width: 30%;
+    width: 50%;
     margin: 0 auto;
     height: auto;
     max-height: 70vh;
@@ -20,13 +21,33 @@
     padding: 20px;
     border: 1px solid #999;
     overflow: auto;
+    .content-info {
+        text-align: left;
+        padding: 30px;
+        margin-left: 30px;
+        div{
+            padding-bottom: 10px;
+        }
+        .okBtn{
+            margin-right: 15px;
+        }
+        input{
+            width: 100%;
+            padding: 5px;
+        }
+        button{
+            padding: 5px;
+            width: 15%;
+            background-color: white;
+        }
+    }
   }
-   
-  .close-icon {
+  
+  .info-close-icon {
     content: 'x';
     cursor: pointer;
     position: fixed;
-    right: calc(36% - 30px);
+    right: calc(26% - 30px);
     top: calc(100vh - 85vh - 33px);
     background: #ededed;
     width: 25px;
@@ -36,11 +57,4 @@
     text-align: center;
     border: 1px solid #999;
     font-size: 20px;
-  }
-
-  .popup__btn {
-    width: 80px;
-    border: none;
-    text-align: center;
-    cursor: pointer;
   }
