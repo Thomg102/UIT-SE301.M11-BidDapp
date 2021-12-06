@@ -21,12 +21,46 @@ const OfferList = ({ match }) => {
     const [accepted, setAccepted] = useState(false);
     const [ind, setInd] = useState();
     const [check, setCheck] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertContent, setAlertContent] = useState('');
+    const [alertType, setAlertType] = useState('');
+    const [alertColor, setAlertColor] = useState('');
+
+    const enableAlert = (content, type) => {
+        setShowAlert(true);
+        setAlertContent(content);
+        setAlertType(type);
+    
+        switch(type) {
+          case "warning":
+            setAlertColor(warning);
+            break
+          case "success":
+            setAlertColor(success);
+            break;
+          case "error":
+            setAlertColor(error);
+            break;
+          default: 
+            setAlertColor(info);
+            break;
+        }
+    
+        const timer = setTimeout(resetAlert, 5000);
+       return () => clearTimeout(timer);
+      }
+    
+      const resetAlert = () => {
+        setShowAlert(false);
+        setAlertContent('');
+      }
+
     useEffect(async () => {
         let web3;
         if (window.ethereum != undefined) {
             web3 = new Web3(window.ethereum);
         } else {
-            <AlertComp backgroundColor={warning} type="warning" content="Please install Metamask" />
+            enableAlert("Please install Metamask", 'warning');
         }
 
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
@@ -77,27 +111,28 @@ const OfferList = ({ match }) => {
         if (window.ethereum != undefined) {
             web3 = new Web3(window.ethereum);
         } else {
-            <AlertComp backgroundColor={warning} type="warning" content="Please installing Metamask" />
+            enableAlert("Please install Metamask", 'warning');
         }
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
         // console.log(index)
         await contract.methods.approveOffer(match.params.id, index).send({
             from: window.localStorage.account
         }).on("transactionHash", hash => {
-            <AlertComp backgroundColor={info} type="warning" content={`'Creating..... ' ${hash}`} />
+            enableAlert(`Creating..... ${hash}`, 'info');
             window.alert("Please waiting...")
         })
             .on("receipt", async (receipt) => {
                 console.log("receipt: " + receipt);
             })
             .on("error", () => {
-                <AlertComp backgroundColor={error} type="error" content="Something with wrong, such as Img was not existed....." />
+                enableAlert('Something with wrong', 'error');
             });
     }
 
 
     return (
         <div class="card-body border-top detail__catalog-content">
+            {showAlert && <AlertComp resetAlert={resetAlert} backgroundColor={alertColor} type={alertType} content={alertContent} />}
             <div class="card-text">
                 <div class="container-sm">
                     {
