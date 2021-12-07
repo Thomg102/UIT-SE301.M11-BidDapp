@@ -24,6 +24,8 @@ const ProductList = () => {
 
     const search = useLocation().search;  
     const query = new URLSearchParams(search).get('query');
+    const min_price = new URLSearchParams(search).get('min_price')
+    const max_price = new URLSearchParams(search).get('max_price')
 
     useEffect(async () => {
         const web3 = new Web3(window.ethereum);
@@ -49,7 +51,24 @@ const ProductList = () => {
             arr.push(obj);
 
         }
+        setProducts(arr)
+        setFetch(false)
     }, [])
+
+    const filter = (product) => {
+        //filter
+        let output = false
+        if (query == null) {
+            //min_price
+            if (min_price === "" || parseFloat(min_price) <= product.price) 
+                output = true;
+            //max_price
+            if (max_price === "" || parseFloat(max_price) >= product.price)
+                output = true;
+            else output = false;
+        } else if (query === "" || product.name.toLowerCase().includes(query.toLowerCase())) output = true;
+        return output;
+    }
     return (
         <>
             <div className="mt-5">
@@ -61,11 +80,7 @@ const ProductList = () => {
                         <div className="row justify-content-between m-0">
                             {
                                 fetchData ? (<CircularProgress style={{margin: '100px auto'}} />) :
-                                    products.filter((product) => {
-                                        if (query == null || query === ""
-                                            || product.name.toLowerCase().includes(query.toLowerCase()))
-                                            return product;
-                                    }).map((product, index) => (
+                                    products.filter((product) => { return filter(product) && product}).map((product, index) => (
                                         <Product
                                             {...product}
                                             key={index}
