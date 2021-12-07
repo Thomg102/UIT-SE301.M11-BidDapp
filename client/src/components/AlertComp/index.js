@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-const AlertComp = ({ type, content, ...props }) => {
+const AlertComp = ({ type, content, resetAlert, ...props }) => {
     const classes = useStyles(props);
     const [state, setState] = useState({
         open: true,
@@ -24,10 +24,11 @@ const AlertComp = ({ type, content, ...props }) => {
 
     const handleClose = () => {
         setState({...state, open: false});
+        resetAlert();
     };
 
     return (
-        <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={5000} onClose={handleClose}>
             <Alert  
                 className={ classes.alert }
                 key={vertical + horizontal} 

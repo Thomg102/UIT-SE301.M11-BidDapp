@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Alert } from '@material-ui/lab'
 
 import PaypalSend from '../../assets/js/connect-paypal';
@@ -10,7 +10,6 @@ const Popup = props => {
   return (
     <div className="popup-box">
       <div className="box">
-
         {
           props.isETH?(
             <div>
@@ -19,7 +18,7 @@ const Popup = props => {
               <div className="d-flex justify-content-around mt-5">
                 <button className="btn-secondary popup__btn" onClick={props.handleClose} >Cancel</button>
                 <button className="btn-success popup__btn" onClick={() => {
-                    <AlertComp backgroundColor={info} type="info" content="Pay by ETH" />
+                    props.enableAlert('Pay by ETH', 'info');
                     props.handleClose();
                     props.onBuy();}} >Buy</button>
               </div>
@@ -31,14 +30,13 @@ const Popup = props => {
         <div className="d-flex justify-content-around mt-5">
             <button className="btn-secondary popup__btn" onClick={props.handleClose} >Cancel</button>
             <button className="btn-success popup__btn" onClick={() => {
-                <AlertComp backgroundColor={info} type="info" content="Pay by USD" />
+                props.enableAlert('Pay by USD', 'info');
                 props.handleClose();
                 props.onBuy();}} >Buy</button>
         </div>
         </div>
           )
         }
-
       </div>
     </div>
   );

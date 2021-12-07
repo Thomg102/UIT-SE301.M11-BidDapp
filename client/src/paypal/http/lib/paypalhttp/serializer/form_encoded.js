@@ -1,6 +1,6 @@
 'use strict';
 
-const querystring = require('querystring');
+
 
 class FormEncoded {
   contentType() {

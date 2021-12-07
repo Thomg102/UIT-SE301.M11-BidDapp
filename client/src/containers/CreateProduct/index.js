@@ -15,6 +15,40 @@ const Index = () => {
     const [fileUrl, updateFileUrl] = useState(``)
     const [account, setAccount] = useState("Connect to wallet");
     const [redirect, setRedirect] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertContent, setAlertContent] = useState('');
+    const [alertType, setAlertType] = useState('');
+    const [alertColor, setAlertColor] = useState('');
+
+    const enableAlert = (content, type) => {
+        setShowAlert(true);
+        setAlertContent(content);
+        setAlertType(type);
+    
+        switch(type) {
+          case "warning":
+            setAlertColor(warning);
+            break
+          case "success":
+            setAlertColor(success);
+            break;
+          case "error":
+            setAlertColor(error);
+            break;
+          default: 
+            setAlertColor(info);
+            break;
+        }
+    
+        const timer = setTimeout(resetAlert, 5000);
+       return () => clearTimeout(timer);
+      }
+    
+      const resetAlert = () => {
+        setShowAlert(false);
+        setAlertContent('');
+      }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const obj = {
@@ -33,7 +67,7 @@ const Index = () => {
                     window.localStorage.account = result[0];
                 })
         } else {
-            <AlertComp backgroundColor={error} type="error" content="Please install meta mask!" />
+            enableAlert("Please install Metamask", 'error');
         }
 
         const added = await client.add(JSON.stringify(obj))
@@ -46,7 +80,7 @@ const Index = () => {
             gas: 5500000
         })
         .on("transactionHash", hash => {
-            <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
+            enableAlert(`Creating..... ${hash}`, 'info');
         })
         .on("receipt", async (receipt) => {
             console.log("receipt: " + receipt);
@@ -55,16 +89,17 @@ const Index = () => {
                 from: window.localStorage.account,
                 gas: 5500000
             });
-            <AlertComp backgroundColor={success} type="success" content="Created and Approve" />
+            enableAlert(`Created and Approve`, 'success');
             setRedirect(true);
         })
         .on("error", () => {
-            <AlertComp backgroundColor={error} type="error" content="Something went wrong, such as Img is not existed....." />
+            enableAlert("Something went wrong, such as Img is not existed.....", 'error');
         });
     }
 
     return (
         <>
+            {showAlert && <AlertComp resetAlert={resetAlert} backgroundColor={alertColor} type={alertType} content={alertContent} />}
             <div class="d-flex h-100 createProduct mt-5">
                 <div class="col-2 pl-0 h-100 w-25 fixed-top">
 

@@ -25,6 +25,11 @@ const ProductDetail = ({ match }) => {
   const [redirect, setRedirect] = useState(false)
   const [disable, setDisable] = useState(false)
   const [minTime, setMinTime] = useState('2021-04-11T00:00')
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState('');
+  const [alertType, setAlertType] = useState('');
+  const [alertColor, setAlertColor] = useState('');
+
   const getapi = async (url) => {
     const response = await fetch(url)
     const data = response.json()
@@ -56,10 +61,10 @@ const ProductDetail = ({ match }) => {
     ) {
       setDisable(true)
       if (!product.selling) {
-        <AlertComp backgroundColor={info} type="info" content="This product's owner haven't bought yet!" />
+        enableAlert("This product's owner haven't bought yet!", 'info');
       }
       if (ownerof.toUpperCase() == window.localStorage.account.toUpperCase()) {
-        <AlertComp backgroundColor={info} type="info" content="You are this product's owner!" />
+        enableAlert("You are this product's owner!", 'info');
       }
     }
     if (componentMounted.current) {
@@ -77,6 +82,35 @@ const ProductDetail = ({ match }) => {
       })
     }
   }, [])
+
+  const enableAlert = (content, type) => {
+    setShowAlert(true);
+    setAlertContent(content);
+    setAlertType(type);
+
+    switch(type) {
+      case "warning":
+        setAlertColor(warning);
+        break
+      case "success":
+        setAlertColor(success);
+        break;
+      case "error":
+        setAlertColor(error);
+        break;
+      default: 
+        setAlertColor(info);
+        break;
+    }
+
+    const timer = setTimeout(resetAlert, 5000);
+   return () => clearTimeout(timer);
+  }
+
+  const resetAlert = () => {
+    setShowAlert(false);
+    setAlertContent('');
+  }
 
   const togglePopup = () => {
     setIsOpen(!isOpen)
@@ -120,15 +154,15 @@ const ProductDetail = ({ match }) => {
           })
           .on('transactionHash', (hash) => {
             console.log(hash);
-            <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
+            enableAlert(`Creating..... ${hash}`, 'info');
           })
           .on('receipt', async (receipt) => {
             console.log('receipt: ' + receipt);
-            <AlertComp backgroundColor={success} type="success" content="Buy successfully!" />
+            enableAlert("Buy successfully!", 'success');
             setRedirect(true)
           })
           .on('error', () => {
-            <AlertComp backgroundColor={error} type="error" content="Something with wrong....." />
+            enableAlert("Something with wrong.....", 'error');
           })
       },
     })
@@ -153,15 +187,15 @@ const ProductDetail = ({ match }) => {
         value: product.price,
       })
       .on('transactionHash', (hash) => {
-        <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
+        enableAlert(`Creating..... ${hash}`, 'info');
       })
       .on('receipt', async (receipt) => {
         console.log('receipt: ' + receipt);
-        <AlertComp backgroundColor={success} type="success" content="Buy successfully!" />
+        enableAlert('Buy successfully!', 'success');
         setRedirect(true)
       })
       .on('error', () => {
-        <AlertComp backgroundColor={error} type="error" content="Something with wrong....." />
+        enableAlert('Something with wrong.....', 'error');
       })
   }
 
@@ -176,7 +210,7 @@ const ProductDetail = ({ match }) => {
     if (window.ethereum != undefined) {
       web3 = new Web3(window.ethereum)
     } else {
-      <AlertComp backgroundColor={error} type="error" content="Please installing Metamask" />
+      enableAlert('Please installing Metamask', 'error');
     }
 
     const contract = await new web3.eth.Contract(
@@ -201,7 +235,7 @@ const ProductDetail = ({ match }) => {
           from: window.localStorage.account,
         })
         .on('transactionHash', (hash) => {
-          <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
+          enableAlert(`Creating..... ${hash}`, 'info');
           window.alert('Please waiting...')
           togglePopup()
         })
@@ -210,7 +244,7 @@ const ProductDetail = ({ match }) => {
           setRedirect(true)
         })
         .on('error', () => {
-          <AlertComp backgroundColor={error} type="error" content="Something with wrong, such as Img was not existed....." />
+          enableAlert('Something with wrong, Img was not existed.....', 'error');
         })
     } else if (Number(balance) > Number(obj.amount)) {
       await IERC20Contract.methods
@@ -226,7 +260,7 @@ const ProductDetail = ({ match }) => {
           togglePopup()
         })
         .on('error', () => {
-          <AlertComp backgroundColor={error} type="error" content="Something with wrong, not enough money....." />
+          enableAlert('Something with wrong, not enough money.....', 'error');
         })
       const object = await contract.methods
         .offer(match.params.id, obj.amount, obj.addressToken, obj.time)
@@ -234,7 +268,7 @@ const ProductDetail = ({ match }) => {
           from: window.localStorage.account,
         })
         .on('transactionHash', (hash) => {
-          <AlertComp backgroundColor={info} type="info" content={`Creating..... ${hash}`} />
+          enableAlert(`Creating..... ${hash}`, 'info');
           window.alert('Please waiting...')
         })
         .on('receipt', async (receipt) => {
@@ -242,7 +276,7 @@ const ProductDetail = ({ match }) => {
           setRedirect(true)
         })
         .on('error', () => {
-          <AlertComp backgroundColor={error} type="error" content="Something went wrong, such as Img is not existed....." />
+          enableAlert('Something went wrong, Img was not existed.....', 'error');
         })
     } else {
       window.alert('Khong du tien')
@@ -251,6 +285,7 @@ const ProductDetail = ({ match }) => {
 
   return (
     <div>
+      {showAlert && <AlertComp resetAlert={resetAlert} backgroundColor={alertColor} type={alertType} content={alertContent} />}
       {_product && (
         <div className="container detail mt-5">
           <div className="row gx-5">
@@ -321,6 +356,7 @@ const ProductDetail = ({ match }) => {
                     onClick={() => {
                       togglePopup()
                       toggleUSD(true)
+                      toggleETH(false)
                     }}
                     width="175"
                     disabled={disable}
@@ -332,6 +368,7 @@ const ProductDetail = ({ match }) => {
                     onClick={() => {
                       togglePopup()
                       toggleETH(true)
+                      toggleUSD(false)
                     }}
                     width="175"
                     disabled={disable}
@@ -357,12 +394,14 @@ const ProductDetail = ({ match }) => {
                         handleClose={togglePopup}
                         onBuy={onBuyETH}
                         isETH={isETH}
+                        enableAlert={enableAlert}
                       />
                     ) : isUSD ? (
                       <Popup
                         handleClose={togglePopup}
                         onBuy={onBuy}
-                        isETH={isETH}
+                        isUSD={isUSD}
+                        enableAlert={enableAlert}
                       />
                     ) : (
                       <InfoPopup
