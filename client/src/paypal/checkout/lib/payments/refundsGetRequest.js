@@ -6,7 +6,7 @@
 // DO NOT EDIT
 'use strict';
 
-const querystring = require('querystring'); // eslint-disable-line no-unused-vars
+ // eslint-disable-line no-unused-vars
 /**
  Shows details for a refund, by ID.
  **/

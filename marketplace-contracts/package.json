@@ -12,7 +12,7 @@
         "url": "git+https://github.com/Thomg102/UIT-SE301.M11-BidDapp.git"
     },
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "@openzeppelin/contracts": "^4.2.0",
         "@truffle/hdwallet-provider": "^1.4.1",
@@ -23,5 +23,5 @@
     "bugs": {
         "url": "https://github.com/Thomg102/UIT-SE301.M11-BidDapp/issues"
     },
-    "homepage": "https://github.com/Thomg102/UIT-SE301.M11-BidDapp#readme"
+    "homepage": "https://blockcommerce.herokuapp.com"
 }
