@@ -81,7 +81,10 @@ const OfferList = ({ match }) => {
                 setAccepted(true);
                 setInd(index);
             }
-            setCount(prev => [...prev, resu.timeout - Math.round(Date.now() / 1000)])
+            if (resu.timeout - Math.round(Date.now() / 1000) >=0){
+                setCount(prev => [...prev, resu.timeout - Math.round(Date.now() / 1000)])
+            }
+            else setCount(prev => [...prev, 0])
             const IERC20Contract = await new web3.eth.Contract(IERC20.abi, resu.token20);
             const symbol = await IERC20Contract.methods.symbol().call();
             setSymbol(prev => [...prev, symbol])
