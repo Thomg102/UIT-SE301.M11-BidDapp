@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useLayoutEffect, useState } from 'react';
 import Product from '../../components/Product/index';
 // import { productList } from "../../virtualData/productList";
@@ -8,6 +9,7 @@ import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import { MARKETPLACE_ADDR, ART_ADDR } from '../../config/config.json';
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useLocation } from 'react-router-dom';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -19,6 +21,11 @@ const ProductList = () => {
         const data = await response.json();
         return data
     }
+
+    const search = useLocation().search;  
+    const query = new URLSearchParams(search).get('query');
+    const min_price = new URLSearchParams(search).get('min_price')
+    const max_price = new URLSearchParams(search).get('max_price')
 
     useEffect(async () => {
         const web3 = new Web3(window.ethereum);
@@ -44,14 +51,24 @@ const ProductList = () => {
             arr.push(obj);
 
         }
-        setFetch(false);
-        setProducts(prev => [...prev, ...arr])
-
-        return () => {
-            setProducts([]);
-            componentMounted.current = false;
-        }
+        setProducts(arr)
+        setFetch(false)
     }, [])
+
+    const filter = (product) => {
+        //filter
+        let output = false
+        if (query == null) {
+            //min_price
+            if (min_price === "" || parseFloat(min_price) <= product.price) 
+                output = true;
+            //max_price
+            if (max_price === "" || parseFloat(max_price) >= product.price)
+                output = true;
+            else output = false;
+        } else if (query === "" || product.name.toLowerCase().includes(query.toLowerCase())) output = true;
+        return output;
+    }
     return (
         <>
             <div className="mt-5">
@@ -63,7 +80,7 @@ const ProductList = () => {
                         <div className="row justify-content-between m-0">
                             {
                                 fetchData ? (<CircularProgress style={{margin: '100px auto'}} />) :
-                                    products.map((product, index) => (
+                                    products.filter((product) => { return filter(product) && product}).map((product, index) => (
                                         <Product
                                             {...product}
                                             key={index}

@@ -84,9 +84,9 @@ const Header = () => {
 
         <div class="header-right align-self-center d-flex">
         <div className = "search-bar align-self-center">
-          <form noValidate>
-            <TextField className={classes.searchField} id="standard-search" type="search" />
-            <Button className={classes.searchBtn}>
+          <form method="GET" action="/products" >
+            <TextField className={classes.searchField} name="query" id="standard-search" type="search" />
+            <Button type="submit" className={classes.searchBtn}>
               <Icon fontSize="large">search</Icon>
               </Button>
           </form>
