@@ -1,8 +1,8 @@
 {
   "name": "client",
-  "homepage": "https://Thomg102/UIT-SE301.M11-BlockCommerce/",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Thomg102.github.io/UIT-SE301.M11-BlockCommerce",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@material-ui/core": "^4.12.3",
@@ -13,13 +13,11 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.3",
-    "express": "^4.17.1",
     "filepond": "^4.30.3",
     "filepond-plugin-file-encode": "^2.1.10",
     "filepond-plugin-image-exif-orientation": "^1.0.11",
     "filepond-plugin-image-preview": "^4.6.10",
     "filepond-plugin-image-resize": "^2.0.10",
-    "gh-pages": "^3.2.3",
     "ipfs-http-client": "^53.0.1",
     "jquery": "^3.6.0",
     "node-sass": "^6.0.1",
@@ -35,18 +33,15 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "sass": "^1.36.0",
-    "serve-favicon": "^2.5.0",
     "web-vitals": "^1.1.2",
     "web3": "^1.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build --profile",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "postbuild": "purgecss --css build/static/css/*.css --content build/index.html build/static/js/*.js --output build/static/css"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -67,6 +62,6 @@
     ]
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^4.1.3"
+    "gh-pages": "^3.2.3"
   }
 }
