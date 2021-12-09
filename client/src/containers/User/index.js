@@ -186,7 +186,7 @@ const User = ({ match }) => {
                 {/* <!-- Tab panes --> */}
                 <div class="tab-content">
                     <div id="collected" class="container tab-pane active">
-                        <div className="mt-5">
+                        <div className="mt-0">
                             <div className="row gx-4 m-0 pl-3 pr-3">
                                 <div className="col-12 p-0">
                                     <div className="row justify-content-around m-0">
@@ -205,7 +205,7 @@ const User = ({ match }) => {
                         </div>
                     </div>
                     <div id="created" class="container tab-pane fade">
-                        <div className="mt-5">
+                        <div className="mt-0">
                             <div className="row gx-4 m-0 pl-3 pr-3">
                                 <div className="col-12 p-0">
                                     <div className="row justify-content-around m-0">
