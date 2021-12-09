@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "homepage": "https://Thomg102/UIT-SE301.M11-BlockCommerce/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,6 +19,7 @@
     "filepond-plugin-image-exif-orientation": "^1.0.11",
     "filepond-plugin-image-preview": "^4.6.10",
     "filepond-plugin-image-resize": "^2.0.10",
+    "gh-pages": "^3.2.3",
     "ipfs-http-client": "^53.0.1",
     "jquery": "^3.6.0",
     "node-sass": "^6.0.1",
@@ -42,6 +44,8 @@
     "build": "react-scripts build --profile",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "postbuild": "purgecss --css build/static/css/*.css --content build/index.html build/static/js/*.js --output build/static/css"
   },
   "eslintConfig": {
