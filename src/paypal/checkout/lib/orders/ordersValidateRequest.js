@@ -13,7 +13,7 @@ class OrdersValidateRequest {
     this.verb = 'POST';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 
@@ -28,4 +28,4 @@ class OrdersValidateRequest {
   }
 }
 
-export default {OrdersValidateRequest: OrdersValidateRequest};
+export {OrdersValidateRequest  as OrdersValidateRequest};

@@ -138,9 +138,9 @@ class HttpClient {
               resolve(this._parseResponse(body, response, formattedHeaders));
             } else {
               reject(new HttpError({
-                text: body,
-                statusCode: response.statusCode,
-                headers: response.headers
+                text : body,
+                statusCode : response.statusCode,
+                headers : response.headers
               }));
             }
           });
@@ -180,8 +180,8 @@ class HttpClient {
 
   _parseResponse(body, response, formattedHeaders) {
     var data = {
-      statusCode: response.statusCode,
-      headers: response.headers
+      statusCode : response.statusCode,
+      headers : response.headers
     };
 
     if (body) {
@@ -192,4 +192,4 @@ class HttpClient {
   }
 }
 
-module.exports = {HttpClient: HttpClient};
+export {HttpClient  as HttpClient};

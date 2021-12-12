@@ -13,7 +13,7 @@ class OrdersAuthorizeRequest {
     this.verb = 'POST';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 
@@ -40,4 +40,4 @@ class OrdersAuthorizeRequest {
   }
 }
 
-export default {OrdersAuthorizeRequest: OrdersAuthorizeRequest};
+export {OrdersAuthorizeRequest  as OrdersAuthorizeRequest};

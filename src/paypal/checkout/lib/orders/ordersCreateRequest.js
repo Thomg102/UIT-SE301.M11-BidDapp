@@ -12,7 +12,7 @@ class OrdersCreateRequest {
     this.verb = 'POST';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 
@@ -34,4 +34,4 @@ class OrdersCreateRequest {
   }
 }
 
-export default {OrdersCreateRequest: OrdersCreateRequest};
+export {OrdersCreateRequest  as OrdersCreateRequest};

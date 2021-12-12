@@ -13,9 +13,9 @@ class AuthorizationsGetRequest {
     this.verb = 'GET';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 }
 
-export default {AuthorizationsGetRequest: AuthorizationsGetRequest};
+export {AuthorizationsGetRequest as AuthorizationsGetRequest};

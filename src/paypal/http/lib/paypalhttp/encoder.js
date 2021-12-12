@@ -37,7 +37,7 @@ class Encoder {
     if (!contentType) {
       throw new Error('HttpRequest does not have Content-Type header set');
     }
-    // Forcing Lowercase to ensure deserializing happens properly
+    // Forcing LowerCase to ensure deserializing happens properly
     contentType = contentType.toLowerCase();
 
     let encoder = this._encoder(contentType);
@@ -66,4 +66,4 @@ class Encoder {
   }
 }
 
-module.exports = {Encoder: Encoder};
+export {Encoder as Encoder};

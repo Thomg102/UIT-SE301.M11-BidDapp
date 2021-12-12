@@ -13,7 +13,7 @@ class FormPart {
     this.value = value;
 
     Object.keys(headers).forEach((key) => {
-      // downcase, split into words, title case words, join into 'Header-Case'
+      // downCase, split into words, title Case words, join into 'Header-Case'
       this.headers[key.toLowerCase().split('-').map((word) => { return word[0].toUpperCase() + word.slice(1); }).join('-')] = headers[key];
     });
   }
@@ -95,8 +95,8 @@ class Multipart {
 
     if (formPartContentType) {
       let body = encoder.serializeRequest({
-        body: formPartValue,
-        headers: formattedHeaders
+        body :formPartValue,
+        headers :formattedHeaders
       });
 
       contentBuffer = Buffer.from(body + Multipart._CRLF);
@@ -158,7 +158,7 @@ class Multipart {
   }
 }
 
-module.exports = {
-  Multipart: Multipart,
-  FormPart: FormPart
+export {
+  Multipart as Multipart,
+  FormPart as FormPart
 };

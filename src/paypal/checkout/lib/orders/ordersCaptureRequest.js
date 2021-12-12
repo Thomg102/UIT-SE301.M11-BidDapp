@@ -13,7 +13,7 @@ class OrdersCaptureRequest {
     this.verb = 'POST';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 
@@ -40,4 +40,4 @@ class OrdersCaptureRequest {
   }
 }
 
-export default {OrdersCaptureRequest: OrdersCaptureRequest};
+export {OrdersCaptureRequest as OrdersCaptureRequest};

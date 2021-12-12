@@ -14,7 +14,7 @@ class AuthorizationsCaptureRequest {
     this.verb = 'POST';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 
@@ -36,4 +36,4 @@ class AuthorizationsCaptureRequest {
   }
 }
 
-export default {AuthorizationsCaptureRequest: AuthorizationsCaptureRequest};
+export {AuthorizationsCaptureRequest as AuthorizationsCaptureRequest};

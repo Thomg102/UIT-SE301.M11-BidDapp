@@ -1,11 +1,18 @@
 'use strict';
 /* eslint-disable comma-dangle*/
 
-export default {
-  OrdersAuthorizeRequest: require('./ordersAuthorizeRequest').OrdersAuthorizeRequest,
-  OrdersCaptureRequest: require('./ordersCaptureRequest').OrdersCaptureRequest,
-  OrdersCreateRequest: require('./ordersCreateRequest').OrdersCreateRequest,
-  OrdersGetRequest: require('./ordersGetRequest').OrdersGetRequest,
-  OrdersPatchRequest: require('./ordersPatchRequest').OrdersPatchRequest,
-  OrdersValidateRequest: require('./ordersValidateRequest').OrdersValidateRequest,
+ let OrdersAuthorizeRequest = require('./ordersAuthorizeRequest').OrdersAuthorizeRequest;
+ let OrdersCaptureRequest = require('./ordersCaptureRequest').OrdersCaptureRequest;
+ let OrdersCreateRequest = require('./ordersCreateRequest').OrdersCreateRequest;
+ let OrdersGetRequest = require('./ordersGetRequest').OrdersGetRequest;
+ let OrdersPatchRequest = require('./ordersPatchRequest').OrdersPatchRequest;
+ let OrdersValidateRequest = require('./ordersValidateRequest').OrdersValidateRequest;
+
+export {
+  OrdersAuthorizeRequest as OrdersAuthorizeRequest,
+  OrdersCaptureRequest as OrdersCaptureRequest,
+  OrdersCreateRequest as OrdersCreateRequest,
+  OrdersGetRequest as OrdersGetRequest,
+  OrdersPatchRequest as OrdersPatchRequest,
+  OrdersValidateRequest as OrdersValidateRequest,
 };

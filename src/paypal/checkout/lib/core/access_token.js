@@ -12,7 +12,7 @@ const EXPIRATION_THRESHOLD = 500;
  */
 class AccessToken {
   /**
-   * @param {object} options - The access token object as it was granted by the token endpoint
+   * @param {object} options - The access token object  as it w as granted by the token endpoint
    * @param {string} options.access_token - The access token
    * @param {string} options.token_type - The token type
    * @param {number} options.expires_in - The duration of the token in milliseconds
@@ -42,6 +42,6 @@ class AccessToken {
   }
 }
 
-export default {
-  AccessToken: AccessToken
+export {
+  AccessToken  as AccessToken
 };

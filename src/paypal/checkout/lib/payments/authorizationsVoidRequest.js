@@ -2,7 +2,7 @@
 
  // eslint-disable-line no-unused-vars
 /**
- Voids, or cancels, an authorized payment, by ID. You cannot void an authorized payment that has been fully captured.
+ Voids, or cancels, an authorized payment, by ID. You cannot void an authorized payment that h as been fully captured.
  **/
 
 class AuthorizationsVoidRequest {
@@ -13,9 +13,9 @@ class AuthorizationsVoidRequest {
     this.verb = 'POST';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 }
 
-export default {AuthorizationsVoidRequest: AuthorizationsVoidRequest};
+export {AuthorizationsVoidRequest as AuthorizationsVoidRequest};

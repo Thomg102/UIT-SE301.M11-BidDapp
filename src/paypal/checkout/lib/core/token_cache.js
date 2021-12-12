@@ -108,4 +108,4 @@ class TokenCache {
   }
 }
 
-export default {TokenCache: TokenCache};
+export {TokenCache  as TokenCache};
