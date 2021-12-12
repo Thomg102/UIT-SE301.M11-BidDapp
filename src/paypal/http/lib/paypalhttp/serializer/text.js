@@ -20,4 +20,4 @@ class Text {
   }
 }
 
-module.exports.Text = Text;
+export {Text as Text};

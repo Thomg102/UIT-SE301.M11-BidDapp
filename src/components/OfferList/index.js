@@ -1,14 +1,9 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import Header from "../../components/Header/index";
-import { productList } from "../../virtualData/productList";
-import PaypalSend from '../../assets/js/connect-paypal';
-import Popup from "../../components/Popup";
+
 import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import { MARKETPLACE_ADDR, ART_ADDR } from '../../config/config.json';
-import { Redirect } from "react-router-dom";
-import InfoPopup from '../../components/InfoPopup';
 import IERC20 from '../../contracts/ERC721.json';
 import AlertComp from '../AlertComp';
 import { error, warning, info, success } from '../../constant/alertBg'

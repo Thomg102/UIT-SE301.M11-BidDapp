@@ -22,4 +22,4 @@ class FormEncoded {
   }
 }
 
-module.exports.FormEncoded = FormEncoded;
+export {FormEncoded as FormEncoded};
