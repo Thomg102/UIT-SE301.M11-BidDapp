@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
-// import PaypalSend from '../../assets/js/connect-paypal'
+import PaypalSend from '../../assets/js/connect-paypal'
 import Popup from '../../components/Popup'
 import Web3 from 'web3'
 import Marketplace from '../../contracts/MarketPlace.json'
@@ -135,43 +135,43 @@ const ProductDetail = ({ match }) => {
   }
 
   const onBuy = () => {
-    // PaypalSend({
-    //   itemName: _product.name,
-    //   destinationEmail: 'testing_seller@example.com', // PASSWORD: testing_seller
-    //   sourceEmail: 'testing_buyer@example.com', // PASSWORD: testing_buyer
-    //   currency: 'USD',
-    //   amount: '0.01',
-    //   onComplete: async () => {
-    //     const web3 = new Web3(window.ethereum)
-    //     const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR)
-    //     const contract = await new web3.eth.Contract(
-    //       Marketplace.abi,
-    //       MARKETPLACE_ADDR
-    //     )
-    //     const product = await contract.methods
-    //       .tokenIdToProduct(match.params.id)
-    //       .call()
-    //     const uri = await artContract.methods.tokenURI(match.params.id).call()
-    //     await contract.methods
-    //       .buyWithCurrency(product.tokenId, Math.random.toString())
-    //       .send({
-    //         from: window.localStorage.account,
-    //         gas: 5500000,
-    //       })
-    //       .on('transactionHash', (hash) => {
-    //         console.log(hash);
-    //         enableAlert(`Creating..... ${hash}`, 'info');
-    //       })
-    //       .on('receipt', async (receipt) => {
-    //         console.log('receipt: ' + receipt);
-    //         enableAlert("Buy successfully!", 'success');
-    //         setRedirect(true)
-    //       })
-    //       .on('error', () => {
-    //         enableAlert("Something with wrong.....", 'error');
-    //       })
-    //   },
-    // })
+    PaypalSend({
+      itemName: _product.name,
+      destinationEmail: 'testing_seller@example.com', // PASSWORD: testing_seller
+      sourceEmail: 'testing_buyer@example.com', // PASSWORD: testing_buyer
+      currency: 'USD',
+      amount: '0.01',
+      onComplete: async () => {
+        const web3 = new Web3(window.ethereum)
+        const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR)
+        const contract = await new web3.eth.Contract(
+          Marketplace.abi,
+          MARKETPLACE_ADDR
+        )
+        const product = await contract.methods
+          .tokenIdToProduct(match.params.id)
+          .call()
+        const uri = await artContract.methods.tokenURI(match.params.id).call()
+        await contract.methods
+          .buyWithCurrency(product.tokenId, Math.random.toString())
+          .send({
+            from: window.localStorage.account,
+            gas: 5500000,
+          })
+          .on('transactionHash', (hash) => {
+            console.log(hash);
+            enableAlert(`Creating..... ${hash}`, 'info');
+          })
+          .on('receipt', async (receipt) => {
+            console.log('receipt: ' + receipt);
+            enableAlert("Buy successfully!", 'success');
+            setRedirect(true)
+          })
+          .on('error', () => {
+            enableAlert("Something with wrong.....", 'error');
+          })
+      },
+    })
   }
 
   const onBuyETH = async () => {
