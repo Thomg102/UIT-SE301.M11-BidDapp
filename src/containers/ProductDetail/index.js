@@ -1,7 +1,4 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import Header from '../../components/Header/index'
-import { productList } from '../../virtualData/productList'
 import PaypalSend from '../../assets/js/connect-paypal'
 import Popup from '../../components/Popup'
 import Web3 from 'web3'
@@ -29,6 +26,7 @@ const ProductDetail = ({ match }) => {
   const [alertContent, setAlertContent] = useState('');
   const [alertType, setAlertType] = useState('');
   const [alertColor, setAlertColor] = useState('');
+  const [sell, setSell] = useState(false);
 
   const getapi = async (url) => {
     const response = await fetch(url)
@@ -67,10 +65,18 @@ const ProductDetail = ({ match }) => {
         enableAlert("You are this product's owner!", 'info');
       }
     }
+    if (
+      !product.selling &&
+      ownerof.toUpperCase() == window.localStorage.account.toUpperCase()
+    ) {
+      setSell(true);
+    }
     if (componentMounted.current) {
+      console.log()
       setProduct({
         id: product.tokenId,
         image: productMetadata.imgUrl,
+        selling: product.selling,
         name: productMetadata.name,
         shortDesc: productMetadata.shortDes,
         price: product.price / Math.pow(10, 18),
@@ -88,7 +94,7 @@ const ProductDetail = ({ match }) => {
     setAlertContent(content);
     setAlertType(type);
 
-    switch(type) {
+    switch (type) {
       case "warning":
         setAlertColor(warning);
         break
@@ -98,13 +104,13 @@ const ProductDetail = ({ match }) => {
       case "error":
         setAlertColor(error);
         break;
-      default: 
+      default:
         setAlertColor(info);
         break;
     }
 
     const timer = setTimeout(resetAlert, 5000);
-   return () => clearTimeout(timer);
+    return () => clearTimeout(timer);
   }
 
   const resetAlert = () => {
@@ -281,6 +287,35 @@ const ProductDetail = ({ match }) => {
     } else {
       window.alert('Khong du tien')
     }
+  }
+
+  const handleSell = async () => {
+    let web3
+    if (window.ethereum != undefined) {
+      web3 = new Web3(window.ethereum)
+    } else {
+      enableAlert('Please installing Metamask', 'error');
+    }
+
+    const contract = await new web3.eth.Contract(
+      Marketplace.abi,
+      MARKETPLACE_ADDR
+    )
+    await contract.methods.setSellOrNot(match.params.id).send({
+      from: window.localStorage.account,
+      gas: 5500000
+    })
+      .on('transactionHash', (hash) => {
+        enableAlert(`Creating..... ${hash}`, 'info');
+      })
+      .on('receipt', async (receipt) => {
+        console.log('receipt: ' + receipt);
+        enableAlert('Set Sell successfully!', 'success');
+        setRedirect(true)
+      })
+      .on('error', () => {
+        enableAlert('Something with wrong.....', 'error');
+      })
   }
 
   return (
@@ -478,11 +513,18 @@ const ProductDetail = ({ match }) => {
                 <OfferList match={match} />
                 {redirect && <Redirect to={'/product/' + match.params.id} />}
               </div>
+              {
+                sell && < button
+                  class="btn btn-primary detail__cta-buy text-white mt-4"
+                  onClick={handleSell}
+                > Sell</button>
+              }
             </div>
           </div>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
 

@@ -1,5 +1,4 @@
 'use strict';
-/* eslint-disable camelcase*/
 /**
  * An OAuth2 client credentials grant access token request
  */
@@ -11,13 +10,13 @@ class AccessTokenRequest {
    */
   constructor(environment, refreshToken) {
     let body = {
-      grant_type: 'client_credentials'
+      grant_type : 'client_credentials'
     };
 
     if (refreshToken) {
       body = {
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken
+        grant_type : 'refresh_token',
+        refresh_token : refreshToken
       };
     }
 
@@ -25,12 +24,12 @@ class AccessTokenRequest {
     this.body = body;
     this.verb = 'POST';
     this.headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: environment.authorizationString()
+      'Content-Type' : 'application/x-www-form-urlencoded',
+      Authorization : environment.authorizationString()
     };
   }
 }
 
-module.exports = {
-  AccessTokenRequest: AccessTokenRequest
+export {
+  AccessTokenRequest as AccessTokenRequest
 };

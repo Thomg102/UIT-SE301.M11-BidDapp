@@ -1,5 +1,4 @@
 'use strict';
-/* eslint-disable camelcase*/
 
 /**
  * An OAuth2 refresh token request, granted from user consent.
@@ -12,13 +11,13 @@ class RefreshTokenRequest {
    */
   constructor(environment, code) {
     let body = {
-      grant_type: 'authorization_code',
-      code: code
+      grant_type : 'authorization_code',
+      code : code
     };
 
     this.headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: environment.authorizationString()
+      'Content-Type' : 'application/x-www-form-urlencoded',
+      Authorization : environment.authorizationString()
     };
 
     this.path = '/v1/identity/openidconnect/tokenservice';
@@ -27,6 +26,6 @@ class RefreshTokenRequest {
   }
 }
 
-module.exports = {
-  RefreshTokenRequest: RefreshTokenRequest
+export {
+  RefreshTokenRequest as RefreshTokenRequest
 };

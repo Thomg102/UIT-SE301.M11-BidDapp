@@ -6,4 +6,4 @@ class Environment {
   }
 }
 
-module.exports = {Environment: Environment};
+export {Environment  as Environment};

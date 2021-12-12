@@ -4,16 +4,10 @@ import { API_URL } from '../../constant/apiRoutes';
 // import Web3 from 'web3';
 import axios from 'axios';
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import Header from "../../components/Header/index";
-import { productList } from "../../virtualData/productList";
-import PaypalSend from '../../assets/js/connect-paypal';
-import Popup from "../../components/Popup";
 import Web3 from 'web3';
 import Marketplace from '../../contracts/MarketPlace.json';
 import Art from '../../contracts/Art.json'
 import { MARKETPLACE_ADDR, ART_ADDR } from '../../config/config.json';
-import { Redirect } from "react-router-dom";
-import IERC20 from '../../contracts/ERC721.json';
 import Product from '../../components/Product/index';
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -186,7 +180,7 @@ const User = ({ match }) => {
                 {/* <!-- Tab panes --> */}
                 <div class="tab-content">
                     <div id="collected" class="container tab-pane active">
-                        <div className="mt-5">
+                        <div className="mt-0">
                             <div className="row gx-4 m-0 pl-3 pr-3">
                                 <div className="col-12 p-0">
                                     <div className="row justify-content-around m-0">
@@ -205,7 +199,7 @@ const User = ({ match }) => {
                         </div>
                     </div>
                     <div id="created" class="container tab-pane fade">
-                        <div className="mt-5">
+                        <div className="mt-0">
                             <div className="row gx-4 m-0 pl-3 pr-3">
                                 <div className="col-12 p-0">
                                     <div className="row justify-content-around m-0">

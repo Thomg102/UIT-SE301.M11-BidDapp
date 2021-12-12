@@ -108,4 +108,4 @@ class TokenCache {
   }
 }
 
-module.exports = {TokenCache: TokenCache};
+export {TokenCache  as TokenCache};

@@ -11,7 +11,7 @@ class CapturesRefundRequest {
     this.verb = 'POST';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 
@@ -31,4 +31,4 @@ class CapturesRefundRequest {
   }
 }
 
-module.exports = {CapturesRefundRequest: CapturesRefundRequest};
+export {CapturesRefundRequest as CapturesRefundRequest};

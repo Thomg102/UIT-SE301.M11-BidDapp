@@ -1,12 +1,21 @@
 'use strict';
 /* eslint-disable comma-dangle*/
 
-module.exports = {
-  AuthorizationsCaptureRequest: require('./authorizationsCaptureRequest').AuthorizationsCaptureRequest,
-  AuthorizationsGetRequest: require('./authorizationsGetRequest').AuthorizationsGetRequest,
-  AuthorizationsReauthorizeRequest: require('./authorizationsReauthorizeRequest').AuthorizationsReauthorizeRequest,
-  AuthorizationsVoidRequest: require('./authorizationsVoidRequest').AuthorizationsVoidRequest,
-  CapturesGetRequest: require('./capturesGetRequest').CapturesGetRequest,
-  CapturesRefundRequest: require('./capturesRefundRequest').CapturesRefundRequest,
-  RefundsGetRequest: require('./refundsGetRequest').RefundsGetRequest,
+ let AuthorizationsCaptureRequest =  require('./authorizationsCaptureRequest').AuthorizationsCaptureRequest;
+ let AuthorizationsGetRequest =  require('./authorizationsGetRequest').AuthorizationsGetRequest;
+ let AuthorizationsReauthorizeRequest =  require('./authorizationsReauthorizeRequest').AuthorizationsReauthorizeRequest;
+ let AuthorizationsVoidRequest =  require('./authorizationsVoidRequest').AuthorizationsVoidRequest;
+ let CapturesGetRequest =  require('./capturesGetRequest').CapturesGetRequest;
+ let CapturesRefundRequest =  require('./capturesRefundRequest').CapturesRefundRequest;
+ let RefundsGetRequest =  require('./refundsGetRequest').RefundsGetRequest;
+
+
+export {
+  AuthorizationsCaptureRequest as AuthorizationsCaptureRequest,
+  AuthorizationsGetRequest as AuthorizationsGetRequest,
+  AuthorizationsReauthorizeRequest as AuthorizationsReauthorizeRequest,
+  AuthorizationsVoidRequest as AuthorizationsVoidRequest,
+  CapturesGetRequest as CapturesGetRequest,
+  CapturesRefundRequest as CapturesRefundRequest,
+  RefundsGetRequest as RefundsGetRequest,
 };

@@ -61,6 +61,6 @@ describe('OrdersCreateRequest', function () {
     });
 });
 
-module.exports = {
+export default {
     CreateOrder: createOrder
 };

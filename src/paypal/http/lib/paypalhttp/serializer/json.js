@@ -14,4 +14,4 @@ class Json {
   }
 }
 
-module.exports.Json = Json;
+export {Json as Json};

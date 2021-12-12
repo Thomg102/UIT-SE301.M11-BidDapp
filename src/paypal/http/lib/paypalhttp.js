@@ -5,9 +5,9 @@ let HttpClient = require('./paypalhttp/http_client').HttpClient;
 let Encoder = require('./paypalhttp/encoder').Encoder;
 let FormPart = require('./paypalhttp/serializer/multipart').FormPart;
 
-module.exports = {
-  Environment: Environment,
-  HttpClient: HttpClient,
-  Encoder: Encoder,
-  FormPart: FormPart
+export {
+  Environment as Environment,
+  HttpClient as HttpClient,
+  Encoder as Encoder,
+  FormPart as FormPart
 };

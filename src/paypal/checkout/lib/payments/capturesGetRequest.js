@@ -11,9 +11,9 @@ class CapturesGetRequest {
     this.verb = 'GET';
     this.body = null;
     this.headers = {
-      'Content-Type': 'application/json'
+      'Content-Type' : 'application/json'
     };
   }
 }
 
-module.exports = {CapturesGetRequest: CapturesGetRequest};
+export {CapturesGetRequest as CapturesGetRequest};

@@ -7,7 +7,7 @@ const SANDBOX_WEB_URL = 'https://www.sandbox.paypal.com';
 const LIVE_WEB_URL = 'https://www.paypal.com';
 
 /**
- * Base class for PayPal Environments
+ * base class for PayPal Environments
  */
 class PayPalEnvironment extends paypalhttp.Environment {
   /**
@@ -54,8 +54,8 @@ class LiveEnvironment extends PayPalEnvironment {
   }
 }
 
-module.exports = {
-  PayPalEnvironment: PayPalEnvironment,
-  LiveEnvironment: LiveEnvironment,
-  SandboxEnvironment: SandboxEnvironment
+export {
+  PayPalEnvironment as PayPalEnvironment,
+  LiveEnvironment as LiveEnvironment,
+  SandboxEnvironment as SandboxEnvironment
 };

@@ -95,7 +95,7 @@ class PayPalHttpClient extends paypalhttp.HttpClient {
 }
 
 /**
- * An injector that fetches token when the client has no token or is expired and queues calls if the token is refreshing
+ * An injector that fetches token when the client h as no token or is expired and queues calls if the token is refreshing
  * @param {Object} request - The current request for the client
  * @return {Promise.<any>} Promise that fetches a new access Token
  */
@@ -116,6 +116,6 @@ function authInjector(request) {
   }
 }
 
-module.exports = {
-  PayPalHttpClient: PayPalHttpClient
+export {
+  PayPalHttpClient  as PayPalHttpClient
 };

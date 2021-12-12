@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Alert } from '@material-ui/lab'
 
-import PaypalSend from '../../assets/js/connect-paypal';
-
 import AlertComp from '../AlertComp';
 import { error, warning, info, success } from '../../constant/alertBg'
 
