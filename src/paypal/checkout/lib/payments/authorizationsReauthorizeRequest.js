@@ -33,4 +33,4 @@ class AuthorizationsReauthorizeRequest {
   }
 }
 
-module.exports = {AuthorizationsReauthorizeRequest: AuthorizationsReauthorizeRequest};
+export default {AuthorizationsReauthorizeRequest: AuthorizationsReauthorizeRequest};

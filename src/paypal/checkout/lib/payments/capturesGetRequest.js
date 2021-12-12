@@ -16,4 +16,4 @@ class CapturesGetRequest {
   }
 }
 
-module.exports = {CapturesGetRequest: CapturesGetRequest};
+export default {CapturesGetRequest: CapturesGetRequest};

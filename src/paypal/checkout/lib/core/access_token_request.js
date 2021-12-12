@@ -31,6 +31,6 @@ class AccessTokenRequest {
   }
 }
 
-module.exports = {
+export default {
   AccessTokenRequest: AccessTokenRequest
 };

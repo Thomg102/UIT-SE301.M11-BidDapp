@@ -42,6 +42,6 @@ class AccessToken {
   }
 }
 
-module.exports = {
+export default {
   AccessToken: AccessToken
 };

@@ -1,7 +1,7 @@
 'use strict';
 /* eslint-disable comma-dangle*/
 
-module.exports = {
+export default {
   OrdersAuthorizeRequest: require('./ordersAuthorizeRequest').OrdersAuthorizeRequest,
   OrdersCaptureRequest: require('./ordersCaptureRequest').OrdersCaptureRequest,
   OrdersCreateRequest: require('./ordersCreateRequest').OrdersCreateRequest,

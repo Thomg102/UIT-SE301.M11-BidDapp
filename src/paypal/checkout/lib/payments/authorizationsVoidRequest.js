@@ -18,4 +18,4 @@ class AuthorizationsVoidRequest {
   }
 }
 
-module.exports = {AuthorizationsVoidRequest: AuthorizationsVoidRequest};
+export default {AuthorizationsVoidRequest: AuthorizationsVoidRequest};

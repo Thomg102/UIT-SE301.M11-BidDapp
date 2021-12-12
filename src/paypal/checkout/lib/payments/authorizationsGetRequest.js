@@ -18,4 +18,4 @@ class AuthorizationsGetRequest {
   }
 }
 
-module.exports = {AuthorizationsGetRequest: AuthorizationsGetRequest};
+export default {AuthorizationsGetRequest: AuthorizationsGetRequest};

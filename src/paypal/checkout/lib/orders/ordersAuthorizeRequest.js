@@ -40,4 +40,4 @@ class OrdersAuthorizeRequest {
   }
 }
 
-module.exports = {OrdersAuthorizeRequest: OrdersAuthorizeRequest};
+export default {OrdersAuthorizeRequest: OrdersAuthorizeRequest};

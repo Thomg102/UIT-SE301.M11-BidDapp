@@ -34,4 +34,4 @@ class OrdersCreateRequest {
   }
 }
 
-module.exports = {OrdersCreateRequest: OrdersCreateRequest};
+export default {OrdersCreateRequest: OrdersCreateRequest};

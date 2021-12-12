@@ -28,4 +28,4 @@ class OrdersValidateRequest {
   }
 }
 
-module.exports = {OrdersValidateRequest: OrdersValidateRequest};
+export default {OrdersValidateRequest: OrdersValidateRequest};

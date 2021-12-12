@@ -1,7 +1,7 @@
 'use strict';
 /* eslint-disable comma-dangle*/
 
-module.exports = {
+export default {
   AccessToken: require('./access_token').AccessToken,
   AccessTokenRequest: require('./access_token_request').AccessTokenRequest,
   PayPalEnvironment: require('./paypal_environment').PayPalEnvironment,

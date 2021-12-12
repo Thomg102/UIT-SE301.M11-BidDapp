@@ -27,6 +27,6 @@ class RefreshTokenRequest {
   }
 }
 
-module.exports = {
+export default {
   RefreshTokenRequest: RefreshTokenRequest
 };

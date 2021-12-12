@@ -36,4 +36,4 @@ class AuthorizationsCaptureRequest {
   }
 }
 
-module.exports = {AuthorizationsCaptureRequest: AuthorizationsCaptureRequest};
+export default {AuthorizationsCaptureRequest: AuthorizationsCaptureRequest};

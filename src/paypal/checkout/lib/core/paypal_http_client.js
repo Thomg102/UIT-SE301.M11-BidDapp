@@ -116,6 +116,6 @@ function authInjector(request) {
   }
 }
 
-module.exports = {
+export default {
   PayPalHttpClient: PayPalHttpClient
 };

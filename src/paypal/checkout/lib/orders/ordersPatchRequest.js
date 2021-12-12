@@ -23,4 +23,4 @@ class OrdersPatchRequest {
   }
 }
 
-module.exports = {OrdersPatchRequest: OrdersPatchRequest};
+export default {OrdersPatchRequest: OrdersPatchRequest};

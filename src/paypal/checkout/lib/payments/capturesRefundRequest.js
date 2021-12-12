@@ -31,4 +31,4 @@ class CapturesRefundRequest {
   }
 }
 
-module.exports = {CapturesRefundRequest: CapturesRefundRequest};
+export default {CapturesRefundRequest: CapturesRefundRequest};

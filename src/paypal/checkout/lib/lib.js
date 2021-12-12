@@ -1,7 +1,7 @@
 'use strict';
 /* eslint-disable comma-dangle*/
 
-module.exports = {
+export default {
   core: require('./core/lib'),
   orders: require('./orders/lib'),
   payments: require('./payments/lib')

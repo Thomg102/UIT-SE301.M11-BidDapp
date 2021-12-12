@@ -24,4 +24,4 @@ class RefundsGetRequest {
   }
 }
 
-module.exports = {RefundsGetRequest: RefundsGetRequest};
+export default {RefundsGetRequest: RefundsGetRequest};

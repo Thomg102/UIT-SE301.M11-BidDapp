@@ -18,4 +18,4 @@ class OrdersGetRequest {
   }
 }
 
-module.exports = {OrdersGetRequest: OrdersGetRequest};
+export default {OrdersGetRequest: OrdersGetRequest};

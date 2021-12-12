@@ -40,4 +40,4 @@ class OrdersCaptureRequest {
   }
 }
 
-module.exports = {OrdersCaptureRequest: OrdersCaptureRequest};
+export default {OrdersCaptureRequest: OrdersCaptureRequest};

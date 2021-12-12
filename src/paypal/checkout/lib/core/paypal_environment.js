@@ -54,7 +54,7 @@ class LiveEnvironment extends PayPalEnvironment {
   }
 }
 
-module.exports = {
+export default {
   PayPalEnvironment: PayPalEnvironment,
   LiveEnvironment: LiveEnvironment,
   SandboxEnvironment: SandboxEnvironment

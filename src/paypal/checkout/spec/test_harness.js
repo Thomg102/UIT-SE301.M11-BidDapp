@@ -15,7 +15,7 @@ function environment() {
   );
 }
 
-module.exports = {
+export default {
     client: client,
     environment: environment
 };
