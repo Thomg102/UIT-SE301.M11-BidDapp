@@ -1,7 +1,4 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import Header from '../../components/Header/index'
-import { productList } from '../../virtualData/productList'
 import PaypalSend from '../../assets/js/connect-paypal'
 import Popup from '../../components/Popup'
 import Web3 from 'web3'
