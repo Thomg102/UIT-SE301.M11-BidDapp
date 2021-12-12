@@ -1,6 +1,6 @@
 'use strict';
 
-class Text {
+export class Text {
   encode(request) {
     if (typeof request.body === 'string') {
       return request.body;
@@ -20,4 +20,3 @@ class Text {
   }
 }
 
-module.exports.Text = Text;

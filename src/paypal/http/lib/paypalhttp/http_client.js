@@ -192,4 +192,4 @@ class HttpClient {
   }
 }
 
-module.exports = {HttpClient: HttpClient};
+export default {HttpClient: HttpClient};

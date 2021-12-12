@@ -2,7 +2,7 @@
 
 
 
-class FormEncoded {
+export class FormEncoded {
   contentType() {
     return /^application\/x-www-form-urlencoded/;
   }
@@ -22,4 +22,3 @@ class FormEncoded {
   }
 }
 
-module.exports.FormEncoded = FormEncoded;

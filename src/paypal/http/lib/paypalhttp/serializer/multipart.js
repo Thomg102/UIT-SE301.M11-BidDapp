@@ -158,7 +158,7 @@ class Multipart {
   }
 }
 
-module.exports = {
+export default {
   Multipart: Multipart,
   FormPart: FormPart
 };

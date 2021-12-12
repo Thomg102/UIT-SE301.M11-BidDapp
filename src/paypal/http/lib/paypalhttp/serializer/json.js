@@ -1,6 +1,6 @@
 'use strict';
 
-class Json {
+export class Json {
   encode(request) {
     return JSON.stringify(request.body);
   }
@@ -14,4 +14,3 @@ class Json {
   }
 }
 
-module.exports.Json = Json;

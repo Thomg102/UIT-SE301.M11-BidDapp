@@ -66,4 +66,4 @@ class Encoder {
   }
 }
 
-module.exports = {Encoder: Encoder};
+export default {Encoder: Encoder};
