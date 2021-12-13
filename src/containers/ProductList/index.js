@@ -22,13 +22,18 @@ const ProductList = () => {
         return data
     }
 
-    const search = useLocation().search;  
+    const search = useLocation().search;
     const query = new URLSearchParams(search).get('query');
     const min_price = new URLSearchParams(search).get('min_price')
     const max_price = new URLSearchParams(search).get('max_price')
 
     useEffect(async () => {
-        const web3 = new Web3(window.ethereum);
+        let web3;
+        if (window.ethereum != undefined) {
+            web3 = new Web3(window.ethereum);
+        } else {
+            web3 = new Web3(new Web3.providers.WebsocketProvider('wss://rinkeby.infura.io/ws/v3/bddd24f8f6d944fdb87633a0d5b9e4fe'));
+        }
         const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR);
         const totalSupply = await artContract.methods.totalSuply().call();
         const contract = await new web3.eth.Contract(Marketplace.abi, MARKETPLACE_ADDR);
@@ -60,7 +65,7 @@ const ProductList = () => {
         let output = false
         if (query == null) {
             //min_price
-            if (min_price === "" || parseFloat(min_price) <= product.price) 
+            if (min_price === "" || parseFloat(min_price) <= product.price)
                 output = true;
             //max_price
             if (max_price === "" || parseFloat(max_price) >= product.price)
@@ -79,8 +84,8 @@ const ProductList = () => {
                     <div className="col-9 p-0">
                         <div className="row justify-content-between m-0">
                             {
-                                fetchData ? (<CircularProgress style={{margin: '100px auto'}} />) :
-                                    products.filter((product) => { return filter(product) && product}).map((product, index) => (
+                                fetchData ? (<CircularProgress style={{ margin: '100px auto' }} />) :
+                                    products.filter((product) => { return filter(product) && product }).map((product, index) => (
                                         <Product
                                             {...product}
                                             key={index}

@@ -41,7 +41,12 @@ const ProductDetail = ({ match }) => {
   })
 
   useEffect(async () => {
-    const web3 = new Web3(window.ethereum)
+    let web3;
+    if (window.ethereum != undefined) {
+      web3 = new Web3(window.ethereum);
+    } else {
+      web3 = new Web3(new Web3.providers.WebsocketProvider('wss://rinkeby.infura.io/ws/v3/bddd24f8f6d944fdb87633a0d5b9e4fe'));
+    }
     const artContract = await new web3.eth.Contract(Art.abi, ART_ADDR)
     const contract = await new web3.eth.Contract(
       Marketplace.abi,
